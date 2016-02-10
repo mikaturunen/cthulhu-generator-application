@@ -4,4 +4,5 @@ application {
 }
 
 customization {
+    node_version="4.3.0"
 }
