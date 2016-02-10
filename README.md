@@ -8,7 +8,7 @@ The application is built with TypeScript and heavily uses ES6 features of JavaSc
 
 ### Stack
 
-* <insert database once decided>
+* < insert database once decided >
 * Node.js
 * Angular (A2 or Polymer maybe?)
 
@@ -31,6 +31,8 @@ Even when it says development, these are required for development. Otto is heavi
 * Start programming like MAD!
 
 ### Suggested editors / plugins
+
+These are something I've found really useful for general development work and I personally enjoy them.
 
 * Install https://atom.io/
 * Install TypeScript plugin for Atom: https://atom.io/packages/atom-typescript
