@@ -12,8 +12,11 @@ var sequence = require("run-sequence").use(gulp);
 var babel = require("gulp-babel");
 var path = require("path");
 
-var typeScriptSource = ["./src/main/typescript/**/*.ts" ];
-var typeScriptDestination = "./src/main/resources/static/js/";
+var typeScriptSource = [
+    "./typedefinitions/backend.d.ts",
+    "./backend/**/*.ts"
+];
+var typeScriptDestination = "./release/";
 
 // TYPESCRIPT COMPILATION
 gulp.task("typescript", function() {
