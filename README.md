@@ -20,7 +20,7 @@ The application is built with TypeScript and heavily uses ES6 features of JavaSc
 * TS compiles to ES6 compatible JavaScript
 * Babel compiles ES6 JS to ES5 compatible JS
 
-### Infra and deployment for development
+### Infra and deployment
 
 Even when it says development, these are required for development. Otto is heavily used to build effective development environment.
 
