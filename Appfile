@@ -1,0 +1,7 @@
+application {
+    name = "Cthulhu Character Generator"
+    type = "node"
+}
+
+customization {
+}
