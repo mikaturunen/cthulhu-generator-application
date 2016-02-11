@@ -50,7 +50,3 @@ gulp.task("typescript", function() {
 gulp.task("w", function() {
     gulp.watch(typeScriptSource, [ "typescript" ]);
 });
-
-gulp.task("default", function() {
-    sequence("typescript");
-});

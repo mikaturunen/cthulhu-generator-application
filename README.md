@@ -26,9 +26,8 @@ Even when it says development, these are required for development. Otto is heavi
 
 * Install https://www.ottoproject.io/docs/concepts/compile.html
 * Install https://www.virtualbox.org/wiki/Downloads
-* Run `otto compile` in project directory
-* Run `otto dev` in project directory
-* Start programming like MAD!
+* Run `nanobox dev` in project directory
+* Start programming like MAD and the changes are automatically synced to environment
 
 ### Suggested editors / plugins
 
