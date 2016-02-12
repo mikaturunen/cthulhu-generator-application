@@ -28,12 +28,13 @@ gulp.task("typescript", function() {
         // Push through to compiler
         .pipe(ts({
             typescript: require("typescript"),
-            declarationFiles: false,
+            target: 'es6',
+            sourceMap: true,
+            removeComments: false,
+            declaration: true,
             noImplicitAny: true,
-            noExternalResolve: false,
-            removeComments: true,
-            target: "es6",
-            showErrors: true
+            failOnTypeErrors: true,
+            suppressImplicitAnyIndexErrors: true
         }))
         // Through babel (es6->es5)
         .pipe(babel({

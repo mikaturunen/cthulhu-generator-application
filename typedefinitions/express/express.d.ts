@@ -407,9 +407,9 @@ declare module "express" {
             originalUrl: string;
 
             url: string;
-            
+
             baseUrl: string;
-            
+
             app: Application;
         }
 
@@ -1072,5 +1072,5 @@ declare module "express" {
         var static: typeof serveStatic;
     }
 
-    export = e;
+    export default e;
 }

@@ -1,6 +1,9 @@
 "use strict";
 
-import * as express from "express";
+// ES6 Polyfill
+require("babel-polyfill");
+
+import express from "express";
 
 const app = express();
 
