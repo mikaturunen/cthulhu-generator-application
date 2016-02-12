@@ -28,6 +28,8 @@ Even when it says development, these are required for development. Otto is heavi
 * Install https://www.virtualbox.org/wiki/Downloads
 * Run `nanobox dev` in project directory
 * Start programming like MAD and the changes are automatically synced to environment
+* To compile everything I suggest you make your life a lot easier inside the nanobox with `npm i -g gulp`
+* Run `gulp` to compile the project
 
 ### Suggested editors / plugins
 
