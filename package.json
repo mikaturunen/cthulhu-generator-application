@@ -2,9 +2,10 @@
   "name": "cthulhu-generator-application",
   "version": "0.0.1",
   "description": "Application for generating characters for Roleplaying game Cthulhu",
-  "main": "",
+  "main": "release/cthulhu.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node release/cthulhu.js"
   },
   "repository": {
     "type": "git",
