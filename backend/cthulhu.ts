@@ -1,4 +1,7 @@
-import express from "express";
+"use strict";
+
+import * as express from "express";
+
 const app = express();
 
 app.get("/", (request: express.Request, response: express.Response) => {
