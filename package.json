@@ -2,10 +2,12 @@
   "name": "cthulhu-generator-application",
   "version": "0.0.1",
   "description": "Application for generating characters for Roleplaying game Cthulhu",
-  "main": "release/cthulhu.js",
+  "main": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node release/cthulhu.js"
+    "tsc:w": "gulp w",
+    "cthulhu": "supervisor -w release/ -e js -x node release/cthulhu.js",
+    "develop": "concurrent 'npm run tsc:w' 'npm run cthulhu' "
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,7 @@
     "babel": "^6.5.1",
     "babel-cli": "^6.5.1",
     "babel-preset-es2015": "^6.5.0",
+    "concurrently": "^1.0.0",
     "event-stream": "^3.3.2",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
@@ -32,6 +35,7 @@
     "gulp-typescript": "^2.11.0",
     "gulp-watch": "^4.3.5",
     "run-sequence": "^1.1.5",
+    "supervisor": "^0.9.1",
     "tslint": "^3.3.0",
     "typescript": "^1.7.5"
   },
