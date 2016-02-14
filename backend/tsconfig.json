@@ -8,11 +8,13 @@
     },
     "compileOnSave": false,
     "filesGlob": [
-        "typedefinitions/backend.d.ts",
-        "backend/**/*.ts",
-        "!node_modules/**"
+        "../typedefinitions/backend.d.ts",
+        "./**/*.ts"
     ],
-    "files": [],
+    "files": [
+        "../typedefinitions/backend.d.ts",
+        "./cthulhu.ts"
+    ],
     "atom": {
         "rewriteTsconfig": true
     }
