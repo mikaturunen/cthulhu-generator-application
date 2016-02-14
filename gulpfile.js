@@ -77,7 +77,10 @@ gulp.task("ts-front", function() {
  * Run with: 'gulp w'
  */
 gulp.task("w", function() {
-    gulp.watch(typeScriptSource, [ "ts-back" ]);
+    gulp.watch([
+        "./typedefinitions/backend.d.ts",
+        "./backend/**/*.ts"
+    ], [ "ts-back" ]);
 });
 
 /**

@@ -1,0 +1,28 @@
+{
+  "name": "cthulhu-generator-application",
+  "description": "Application for generating characters for Roleplaying game Cthulhu",
+  "main": "node release/backend/cthulhu.js",
+  "authors": [
+    "Mika Turunen <mika.turunen@ymail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "Cthulhu",
+    "generator"
+  ],
+  "homepage": "https://github.com/mikaturunen/cthulhu-generator-application",
+  "moduleType": [
+    "es6"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.0",
+    "imd": "PolymerLabs/IMD#^1.0.0"
+  }
+}

@@ -7,10 +7,12 @@ import express from "express";
 
 const app = express();
 
+app.set("port", (process.env.PORT || 3000));
+
 app.get("/", (request: express.Request, response: express.Response) => {
     response.send("Hello, World!");
 });
 
-app.listen(3000, () => {
-    console.log("Example app listening on port 3000!");
+app.listen(app.get("port"), () => {
+    console.log("Cthulhu application listening on port:", app.get("port"));
 });

@@ -9,9 +9,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 require("babel-polyfill");
 
 var app = (0, _express2.default)();
+app.set("port", process.env.PORT || 3000);
 app.get("/", function (request, response) {
     response.send("Hello, World!");
 });
-app.listen(3000, function () {
-    console.log("Example app listening on port 3000!");
+app.listen(app.get("port"), function () {
+    console.log("Cthulhu application listening on port:", app.get("port"));
 });

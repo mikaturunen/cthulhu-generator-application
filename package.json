@@ -4,6 +4,7 @@
   "description": "Application for generating characters for Roleplaying game Cthulhu",
   "main": "node release/backend/cthulhu.js",
   "scripts": {
+    "postinstall": "bower install",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc:w": "gulp w",
     "cthulhu": "supervisor -w release/backend/ -e js -x node release/backend/cthulhu.js",
