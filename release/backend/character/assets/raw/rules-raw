@@ -1,0 +1,37 @@
+Random generation parameters:
+
+Name <list>
+Occupation <list>
+Sex Male/Female
+Sexual orientation (3% bisexual, 2% homosexual, 95% heterosexual)
+Age <see below>
+Nationality US
+Birthplace <list of states>
+Colleges & Degrees: <see below>
+
+AgeMod 1d40
+Str 3d6
+Dex 3d6
+Int 2d6+6
+Con 3d6
+App 3d6
+Pow 3d6
+Siz 2d6+6
+Edu 3d6+3+AgeMod%10
+San = Pow*5
+Idea = Int*5
+Luck = Pow*5
+Know = Edu*5
+
+Str+Dex+Int+Con+App+Pow+Siz+Edu >= 90
+
+Age = 6+Edu+AgeMod
+Age > 40 -> Dex -= 1
+Age > 50 -> Con -= 1
+Age > 60 -> App -= 1
+Age > 70 -> Str -= 1
+
+Degrees: Total must be less or equal to Edu, multiple allowed.
+PhD = 20
+MS,MA = 12
+BS,BA,MFA,MPA,MAT = 8

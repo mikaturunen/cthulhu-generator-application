@@ -13,6 +13,10 @@
     ],
     "files": [
         "../typedefinitions/backend.d.ts",
+        "./character/character.ts",
+        "./character/die.ts",
+        "./character/random.ts",
+        "./character/rules.ts",
         "./cthulhu.ts"
     ],
     "atom": {

@@ -43,7 +43,6 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.5.0",
-    "cthulhu-character-generator": "github:mikaturunen/character-generalizer",
     "express": "^4.13.4"
   }
 }

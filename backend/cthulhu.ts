@@ -5,6 +5,7 @@ require("babel-polyfill");
 
 import express from "express";
 import * as path from "path";
+import { createNewCharacter } from "./character/character";
 
 const app = express();
 
@@ -15,6 +16,10 @@ app.use("/components", express.static(path.join(__dirname, "../components")));
 
 app.get("/", (request: express.Request, response: express.Response) => {
 	response.sendFile(path.join(__dirname, "../components/index.html"));
+});
+
+app.get("/character", (request: express.Request, response: express.Response) => {
+	response.json(createNewCharacter());
 });
 
 app.listen(app.get("port"), () => {
