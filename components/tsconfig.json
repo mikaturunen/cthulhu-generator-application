@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "declaration": false,
+        "noImplicitAny": true,
+        "removeComments": true,
+        "noLib": false
+    },
+    "compileOnSave": false,
+    "filesGlob": [
+        "../typedefinitions/frontend.d.ts",
+        "../typedefinitions/imd/IMD.d.ts",
+        "./**/*.ts"
+    ],
+    "files": [
+        "../typedefinitions/frontend.d.ts",
+        "../typedefinitions/imd/IMD.d.ts",
+        "./cthulhu-application/cthulhu-application.ts"
+    ],
+    "atom": {
+        "rewriteTsconfig": true
+    }
+}
