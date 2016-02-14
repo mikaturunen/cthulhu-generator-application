@@ -12,7 +12,6 @@ var sequence = require("run-sequence").use(gulp);
 var babel = require("gulp-babel");
 var path = require("path");
 
-var typeScriptSource = ;
 var typeScriptDestination = "./release/";
 
 // TYPESCRIPT COMPILATION
