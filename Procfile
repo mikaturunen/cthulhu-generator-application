@@ -1,1 +1,1 @@
-web: node release/cthulhu.js
+web: node release/backend/cthulhu.js
