@@ -2,11 +2,11 @@
   "name": "cthulhu-generator-application",
   "version": "0.0.1",
   "description": "Application for generating characters for Roleplaying game Cthulhu",
-  "main": "node release/cthulhu.js",
+  "main": "node release/backend/cthulhu.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc:w": "gulp w",
-    "cthulhu": "supervisor -w release/ -e js -x node release/cthulhu.js",
+    "cthulhu": "supervisor -w release/backend/ -e js -x node release/backend/cthulhu.js",
     "develop": "concurrent 'npm run tsc:w' 'npm run cthulhu' "
   },
   "repository": {
