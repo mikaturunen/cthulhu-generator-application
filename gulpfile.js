@@ -88,7 +88,7 @@ gulp.task("w", function() {
     gulp.watch([
         "./typedefinitions/backend.d.ts",
         "./backend/**/*.ts"
-    ], [ "ts-back" ]);
+    ], [ "ts-back", "jade" ]);
 });
 
 /**

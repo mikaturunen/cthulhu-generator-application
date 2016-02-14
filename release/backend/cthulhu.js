@@ -17,9 +17,9 @@ require("babel-polyfill");
 var app = (0, _express2.default)();
 
 app.set("port", process.env.PORT || 3000);
-app.use("/components", _express2.default.static(path.join(__dirname + "../components")));
+app.use("/components", _express2.default.static(path.join(__dirname, "../components")));
 app.get("/", function (request, response) {
-    response.send("Hello, World!");
+    response.sendFile(path.join(__dirname, "../components/index.html"));
 });
 app.listen(app.get("port"), function () {
     console.log("Cthulhu application listening on port:", app.get("port"));
