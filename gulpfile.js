@@ -11,6 +11,7 @@ var tslint = require("gulp-tslint");
 var sequence = require("run-sequence").use(gulp);
 var babel = require("gulp-babel");
 var path = require("path");
+var jade = require("gulp-jade");
 
 var typeScriptDestination = "./release/";
 
@@ -73,6 +74,13 @@ gulp.task("ts-front", function() {
 
 });
 
+// JADE COMPILATION
+gulp.task("jade", function() {
+    return gulp.src("./components/**/*.jade")
+        .pipe(jade())
+        .pipe(gulp.dest("./release/components"));
+});
+
 /**
  * Run with: 'gulp w'
  */
@@ -87,5 +95,7 @@ gulp.task("w", function() {
  * Run with: 'gulp' or 'gulp default'
  */
 gulp.task("default", function() {
-    return sequence([ "ts-back" ]);
+    return sequence(
+        [ "ts-back", "jade" ]
+    );
 });
