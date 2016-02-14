@@ -2,7 +2,7 @@
   "name": "cthulhu-generator-application",
   "version": "0.0.1",
   "description": "Application for generating characters for Roleplaying game Cthulhu",
-  "main": "",
+  "main": "node release/cthulhu.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc:w": "gulp w",
@@ -19,8 +19,8 @@
     "url": "https://github.com/mikaturunen/cthulhu-generator-application/issues"
   },
   "engines": {
-    "node": "4.4.0",
-    "npm": "2.14.3"
+    "node": ">4.0.0",
+    "npm": ">2.0.0"
   },
   "homepage": "https://github.com/mikaturunen/cthulhu-generator-application#readme",
   "devDependencies": {
