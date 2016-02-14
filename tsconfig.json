@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "declaration": false,
+        "noImplicitAny": true,
+        "removeComments": true,
+        "noLib": false
+    },
+    "compileOnSave": false,
+    "filesGlob": [
+        "typedefinitions/backend.d.ts",
+        "backend/**/*.ts",
+        "!node_modules/**"
+    ],
+    "files": [
+        "typedefinitions/backend.d.ts",
+        "backend/cthulhu.ts"
+    ],
+    "atom": {
+        "rewriteTsconfig": true
+    }
+}
