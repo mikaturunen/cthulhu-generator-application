@@ -12,16 +12,45 @@ var sequence = require("run-sequence").use(gulp);
 var babel = require("gulp-babel");
 var path = require("path");
 
-var typeScriptSource = [
-    "./typedefinitions/backend.d.ts",
-    "./backend/**/*.ts"
-];
+var typeScriptSource = ;
 var typeScriptDestination = "./release/";
 
 // TYPESCRIPT COMPILATION
-gulp.task("typescript", function() {
+gulp.task("ts-back", function() {
     return gulp
-        .src( typeScriptSource )
+        .src([
+            "./typedefinitions/backend.d.ts",
+            "./backend/**/*.ts"
+        ])
+        // Pipe source to lint
+        .pipe(tslint())
+        .pipe(tslint.report("verbose", { emitError: false }))
+        // Push through to compiler
+        .pipe(ts({
+            typescript: require("typescript"),
+            target: 'es6',
+            sourceMap: true,
+            removeComments: false,
+            declaration: true,
+            noImplicitAny: true,
+            failOnTypeErrors: true,
+            suppressImplicitAnyIndexErrors: true
+        }))
+        // Through babel (es6->es5)
+        .pipe(babel({
+            comments: false,
+            presets: [ "es2015" ]
+        }))
+        .pipe(gulp.dest(path.join(typeScriptDestination, "/backend")));
+});
+
+// Frontend compilation
+gulp.task("ts-front", function() {
+    return gulp
+        .src([
+            "./typedefinitions/frontend.d.ts",
+            "./components/**/*.ts"
+        ])
         // Pipe source to lint
         .pipe(tslint())
         .pipe(tslint.report("verbose"))
@@ -41,7 +70,7 @@ gulp.task("typescript", function() {
             comments: false,
             presets: [ "es2015" ]
         }))
-        .pipe(gulp.dest(typeScriptDestination));
+        .pipe(gulp.dest(path.join(typeScriptDestination, "/components")));
 
 });
 
@@ -49,12 +78,12 @@ gulp.task("typescript", function() {
  * Run with: 'gulp w'
  */
 gulp.task("w", function() {
-    gulp.watch(typeScriptSource, [ "typescript" ]);
+    gulp.watch(typeScriptSource, [ "ts-back" ]);
 });
 
 /**
  * Run with: 'gulp' or 'gulp default'
  */
 gulp.task("default", function() {
-    return sequence([ "typescript" ]);
+    return sequence([ "ts-back" ]);
 });
