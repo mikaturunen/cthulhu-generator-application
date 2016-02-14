@@ -87,8 +87,13 @@ gulp.task("jade", function() {
 gulp.task("w", function() {
     gulp.watch([
         "./typedefinitions/backend.d.ts",
-        "./backend/**/*.ts"
-    ], [ "ts-back", "jade" ]);
+        "./backend/**/*.ts",
+		"./components/**/*"
+    ],
+	[
+		"ts-back",
+		"jade"
+	]);
 });
 
 /**
@@ -96,6 +101,6 @@ gulp.task("w", function() {
  */
 gulp.task("default", function() {
     return sequence(
-        [ "ts-back", "jade" ]
+        [ "ts-back", "jade", "ts-front" ]
     );
 });

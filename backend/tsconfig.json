@@ -12,10 +12,7 @@
         "backend/**/*.ts",
         "!node_modules/**"
     ],
-    "files": [
-        "typedefinitions/backend.d.ts",
-        "backend/cthulhu.ts"
-    ],
+    "files": [],
     "atom": {
         "rewriteTsconfig": true
     }

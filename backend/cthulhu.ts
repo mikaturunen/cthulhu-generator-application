@@ -14,9 +14,9 @@ app.set("port", (process.env.PORT || 3000));
 app.use("/components", express.static(path.join(__dirname, "../components")));
 
 app.get("/", (request: express.Request, response: express.Response) => {
-    response.sendFile(path.join(__dirname, "../components/index.html"));
+	response.sendFile(path.join(__dirname, "../components/index.html"));
 });
 
 app.listen(app.get("port"), () => {
-    console.log("Cthulhu application listening on port:", app.get("port"));
+	console.log("Cthulhu application listening on port:", app.get("port"));
 });
