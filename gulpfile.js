@@ -15,20 +15,16 @@ var jade = require("gulp-jade");
 
 var typeScriptDestination = "./release/";
 
-// TYPESCRIPT COMPILATION
-gulp.task("ts-back", function() {
+var createTypeScriptTaskForTargets = function(typescriptSources, outputDirectory) {
     return gulp
-        .src([
-            "./typedefinitions/backend.d.ts",
-            "./backend/**/*.ts"
-        ])
+        .src(typescriptSources)
         // Pipe source to lint
         .pipe(tslint())
         .pipe(tslint.report("verbose", { emitError: false }))
         // Push through to compiler
         .pipe(ts({
             typescript: require("typescript"),
-            target: 'es6',
+            target: "es6",
             sourceMap: true,
             removeComments: false,
             declaration: true,
@@ -41,43 +37,39 @@ gulp.task("ts-back", function() {
             comments: false,
             presets: [ "es2015" ]
         }))
-        .pipe(gulp.dest(path.join(typeScriptDestination, "/backend")));
+        .pipe(gulp.dest(outputDirectory));
+};
+
+// TYPESCRIPT COMPILATION
+gulp.task("ts-back", function() {
+    return createTypeScriptTaskForTargets([
+            "./typedefinitions/backend.d.ts",
+            "./typedefinitions/cthulhu.d.ts",
+            "./backend/**/*.ts"
+        ],
+        path.join(typeScriptDestination, "/components")
+    );
 });
 
 // Frontend compilation
 gulp.task("ts-front", function() {
-    return gulp
-        .src([
+    return createTypeScriptTaskForTargets([
             "./typedefinitions/frontend.d.ts",
+            "./typedefinitions/cthulhu.d.ts",
             "./components/**/*.ts"
-        ])
-        // Pipe source to lint
-        .pipe(tslint())
-        .pipe(tslint.report("verbose"))
-        // Push through to compiler
-        .pipe(ts({
-            typescript: require("typescript"),
-            target: 'es6',
-            sourceMap: true,
-            removeComments: false,
-            declaration: true,
-            noImplicitAny: true,
-            failOnTypeErrors: true,
-            suppressImplicitAnyIndexErrors: true
-        }))
-        // Through babel (es6->es5)
-        .pipe(babel({
-            comments: false,
-            presets: [ "es2015" ]
-        }))
-        .pipe(gulp.dest(path.join(typeScriptDestination, "/components")));
-
+        ],
+        path.join(typeScriptDestination, "/backend")
+    );
 });
 
 // JADE COMPILATION
 gulp.task("jade", function() {
     return gulp.src("./components/**/*.jade")
-        .pipe(jade())
+        .pipe(jade().on("error", function(error) {
+            // attempting to output Jade error but trying to make sure at the same time that
+            // it doesn't stop the 'watch' usage.
+            console.log(error);
+        }))
         .pipe(gulp.dest("./release/components"));
 });
 
