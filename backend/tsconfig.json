@@ -9,6 +9,7 @@
     "compileOnSave": false,
     "filesGlob": [
         "../typedefinitions/backend.d.ts",
+        "../typedefinitions/cthulhu.d.ts",
         "./**/*.ts"
     ],
     "files": [

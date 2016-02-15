@@ -10,6 +10,7 @@
     "filesGlob": [
         "../typedefinitions/frontend.d.ts",
         "../typedefinitions/imd/IMD.d.ts",
+        "../typedefinitions/cthulhu.d.ts",
         "./**/*.ts"
     ],
     "files": [
