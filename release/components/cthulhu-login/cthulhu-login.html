@@ -1,1 +1,13 @@
-<link rel="import" href="../../components/polymer/polymer.html"/><dom-module id="cthulhu-login"><template><div><span>Silly placeholder buttons with no theming</span></div><button id="login-facebook">Facebook login</button><button id="login-google">Google login</button></template><script src="cthulhu-login.js"></script></dom-module>
+<link rel="import" href="../../components/polymer/polymer.html"/><dom-module id="cthulhu-login"><template><style>.center-aligned {
+  display: 				-webkit-flexbox;
+  display: 				-ms-flexbox;
+  display: 				-webkit-flex;
+  display: 				flex;
+  -webkit-flex-align: 	center;
+  -ms-flex-align: 		center;
+  -webkit-align-items: 	center;
+  align-items: 			center;
+  height: 				5em;
+  justify-content: 		center;
+}
+</style><div style="border: solid 1px black" class="center-aligned"><div style="display: block"><span>Please login with your Google account to start using the Cthulhu character generator. One stop application for all of your Cthulhu character generation, party management and character manipulation needs</span></div><div><button id="login">Login</button></div></div></template><script src="cthulhu-login.js"></script></dom-module>

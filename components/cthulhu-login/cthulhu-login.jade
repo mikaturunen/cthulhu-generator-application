@@ -2,9 +2,13 @@ link(rel="import" href="../../components/polymer/polymer.html")
 
 dom-module#cthulhu-login
 	template
+		style
+			include cthulhu-login.css
+
 		div
-			span Silly placeholder buttons with no theming
-		button#login-facebook Facebook login
-		button#login-google Google login
+			div
+				span Please login with your Google account to start using the Cthulhu character generator. One stop application for all of your Cthulhu character generation, party management and character manipulation needs
+			div
+				button#login Login
 
 	script(src="cthulhu-login.js")
