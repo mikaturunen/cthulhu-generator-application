@@ -61,6 +61,7 @@ namespace StatRules {
 
 	export const statLimit = 90;
 
+	// TODO: Refactor better name?
 	export function checkStats(stats: CharacterStats) {
 		return stats.strength + stats.dexterity + stats.intelligence + stats.constitution + stats.appearance +
 		stats.power + stats.size + stats.education >= statLimit;
@@ -68,7 +69,7 @@ namespace StatRules {
 
 	export function calculateMissingStats(character: Character) {
 		// Education
-		character.stats.education += character.stats.ageModifier % 10;
+		character.stats.education += Math.floor(character.stats.ageModifier / 10);
 		// Sanity, idea, luck and knowledge
 		character.stats.sanity = character.stats.power * 5;
 		character.stats.idea = character.stats.intelligence * 5;
