@@ -12,15 +12,17 @@ var sequence = require("run-sequence").use(gulp);
 var babel = require("gulp-babel");
 var path = require("path");
 var jade = require("gulp-jade");
+var notify = require("gulp-notify");
 
 var typeScriptDestination = "./release/";
+var globalEmit = false;
 
 var createTypeScriptTaskForTargets = function(typescriptSources, outputDirectory) {
     return gulp
         .src(typescriptSources)
         // Pipe source to lint
         .pipe(tslint())
-        .pipe(tslint.report("verbose", { emitError: false }))
+        .pipe(tslint.report("verbose", { emitError: globalEmit }))
         // Push through to compiler
         .pipe(ts({
             typescript: require("typescript"),
@@ -64,12 +66,16 @@ gulp.task("ts-front", function() {
 
 // JADE COMPILATION
 gulp.task("jade", function() {
+    var j = jade({ pretty: true });
+
+    if(globalEmit === false) {
+        j.on('error', notify.onError(function (error) {
+            return 'An error occurred while compiling jade.\nLook in the console for details.\n' + error;
+        }));
+    }
+
     return gulp.src("./components/**/*.jade")
-        .pipe(jade().on("error", function(error) {
-            // attempting to output Jade error but trying to make sure at the same time that
-            // it doesn't stop the 'watch' usage.
-            console.log(error);
-        }))
+        .pipe(j)
         .pipe(gulp.dest("./release/components"));
 });
 
@@ -77,21 +83,39 @@ gulp.task("jade", function() {
  * Run with: 'gulp w'
  */
 gulp.task("w", function() {
+    globalEmit = false;
     gulp.watch([
-        "./typedefinitions/backend.d.ts",
-        "./backend/**/*.ts",
-		"./components/**/*"
-    ],
-	[
-		"ts-back",
-		"jade"
-	]);
+            "./typedefinitions/**/*d.ts",
+            "./backend/**/*.ts"
+        ],
+        [
+	       "ts-back"
+        ]
+	);
+
+    gulp.watch([
+            "./typedefinitions/**/*d.ts",
+            "./components/**/*.ts"
+        ],
+        [
+            "ts-front"
+        ]
+    );
+
+    gulp.watch([
+            "./components/**/*.jade"
+        ],
+        [
+            "jade"
+        ]
+    );
 });
 
 /**
  * Run with: 'gulp' or 'gulp default'
  */
 gulp.task("default", function() {
+    globalEmit = true;
     return sequence(
         [ "ts-back", "jade", "ts-front" ]
     );
