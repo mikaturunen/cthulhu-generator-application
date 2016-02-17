@@ -3,18 +3,24 @@ link(rel="import" href="../../components/polymer/polymer.html")
 //- Application specific components / dependencies
 link(rel="import" href="../../components/cthulhu-style/cthulhu-style.html")
 link(rel="import" href="../../components/cthulhu-login/cthulhu-login.html")
+link(rel="import" href="../../components/cthulhu-button/cthulhu-button.html")
 
 //-	Login component for Cthulhu application. Contains a centered view and a text saying what
 	application we are using and a simple login form. Mainly a button for Google at this point?
 
 dom-module#cthulhu-login
+	link(rel="import" type="css" href="../../components/cthulhu-login/cthulhu-login.css")
 	template
 		style(include="cthulhu-style")
 
-		div.row.row-centered
-			div
-				span Cthulhu Generator Application
-			div
-				button#login Login
+		div
+			div.card.no-border.div
+				span < INSERT VECTORIZED/SVG LOGO HERE >
+			div.card.div
+				div.center.div
+					span Call of Cthulhu
+				div.center.div
+					cthulhu-button#login(is-primary="true")
+						span Login
 
 	script(src="cthulhu-login.js")
