@@ -10,55 +10,55 @@ interface Dice {
 	* How many die are being thrown.
 	* For example: 2d6+1 -> count: 2.
 	*/
-    count: number;
+	count: number;
 
 	/**
 	* The max value of the die, or faces.
 	* For example: 2d6+1 -> max: 6.
 	*/
-    max: number;
+	max: number;
 
 	/**
 	* What value gets added to the die total.
 	* For example: 2d6+1 -> add: 1.
 	*/
-    add: number;
+	add: number;
 }
 
 interface Character {
 	/**
 	* Character age, fairly obvious.
 	*/
-    age: number;
+	age: number;
 
 	/**
 	* Male or Female but we are not limited by this constrain; thus, string. Be whoever you want to be! EMBRACE IT!
 	*/
-    gender: string;
+	gender: string;
 
-    sexualOrientation: string;
-    firstName: string;
-    lastName: string;
-    occupation: string;
-    education: string;
-    stats: CharacterStats;
+	sexualOrientation: string;
+	firstName: string;
+	lastName: string;
+	occupation: string;
+	education: string;
+	stats: CharacterStats;
 	skills: CharacterSkills1920s;
 }
 
 interface CharacterStats {
-    ageModifier: number;
-    strength: number;
-    dexterity: number;
-    intelligence: number;
-    constitution: number;
-    appearance: number;
-    power: number;
-    size: number;
-    education: number;
-    sanity: number;
-    idea: number;
-    luck: number;
-    knowledge: number;
+	ageModifier: number;
+	strength: number;
+	dexterity: number;
+	intelligence: number;
+	constitution: number;
+	appearance: number;
+	power: number;
+	size: number;
+	education: number;
+	sanity: number;
+	idea: number;
+	luck: number;
+	knowledge: number;
 }
 
 interface CharacterSkills {
@@ -127,6 +127,6 @@ interface CustomSkill {
 }
 
 interface EducationLevel {
-    value: number;
-    level: string;
+	value: number;
+	level: string;
 }
