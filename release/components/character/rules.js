@@ -37,13 +37,14 @@ var StatRules;
     StatRules.sexualOrientations = sexualOrientations;
     ;
     StatRules.statLimit = 90;
+
     function checkStats(stats) {
         return stats.strength + stats.dexterity + stats.intelligence + stats.constitution + stats.appearance + stats.power + stats.size + stats.education >= StatRules.statLimit;
     }
     StatRules.checkStats = checkStats;
     ;
     function calculateMissingStats(character) {
-        character.stats.education += character.stats.ageModifier % 10;
+        character.stats.education += Math.floor(character.stats.ageModifier / 10);
 
         character.stats.sanity = character.stats.power * 5;
         character.stats.idea = character.stats.intelligence * 5;

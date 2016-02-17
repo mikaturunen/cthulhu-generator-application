@@ -1,0 +1,6 @@
+:host-context(.different) {
+  color: var(--text-color);
+  background: var(--background-color);
+  margin: 0px;
+  padding: 0px;
+}
