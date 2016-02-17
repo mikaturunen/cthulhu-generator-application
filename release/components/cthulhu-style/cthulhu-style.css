@@ -1,0 +1,20 @@
+:host {
+  --text-color: #1C2B1B;
+  --background-color: white;
+  --primary-button-color: #FFFFFF;
+  --border: 1px solid #e5e5e5;
+  --card-min-width: 200px;
+  --default-margin: 0.5em;
+  --default-padding: 0.25em;
+  --no-border: 0px solid white;
+}
+:host {
+  color: var(--text-color);
+}
+:host .card {
+  padding: 0.5em;
+  border: var(--border);
+  min-width: 200px;
+  color: var(--text-color);
+  background: white;
+}
