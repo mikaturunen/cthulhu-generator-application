@@ -33,6 +33,7 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-jade": "^1.1.0",
+    "gulp-notify": "^2.2.0",
     "gulp-tslint": "^4.3.1",
     "gulp-typescript": "^2.11.0",
     "gulp-watch": "^4.3.5",
