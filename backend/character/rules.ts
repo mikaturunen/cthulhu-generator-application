@@ -21,7 +21,7 @@ namespace StatRules {
 		appearance: { count: 3, max: 6, add: 0 },
 		power: { count: 3, max: 6, add: 0 },
 		size: { count: 2, max: 6, add: 6 },
-		education: { count: 3, max: 6, add: 3 },
+		education: { count: 3, max: 6, add: 3 }
 	};
 
     /**
@@ -32,7 +32,7 @@ namespace StatRules {
 		sanity: 0,
 		idea: 0,
 		luck: 0,
-		knowledge: 0,
+		knowledge: 0
 	};
 
     /**

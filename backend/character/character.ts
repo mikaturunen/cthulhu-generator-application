@@ -35,7 +35,7 @@ const randomizeStats = (character: Character): Character => {
 		roll(rules.dice.appearance),
 		roll(rules.dice.power),
 		roll(rules.dice.size),
-		roll(rules.dice.education),
+		roll(rules.dice.education)
 	];
 
 	if (statRolls.reduce((previousDie: number, nextDie: number) => previousDie + nextDie) < rules.statLimit) {
@@ -120,8 +120,8 @@ const createBaseCharacter = () => {
 			sanity: 0,
 			idea: 0,
 			luck: 0,
-			knowledge: 0,
-		},
+			knowledge: 0
+		}
 	};
 };
 
