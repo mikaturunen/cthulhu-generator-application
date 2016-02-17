@@ -65,7 +65,7 @@ gulp.task("ts-front", function() {
             "./typedefinitions/cthulhu.d.ts",
             "./components/**/*.ts"
         ],
-        path.join(typeScriptDestination, "/backend")
+        path.join(typeScriptDestination, "/components")
     );
 });
 
