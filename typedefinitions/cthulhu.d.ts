@@ -46,7 +46,7 @@ interface Character {
 }
 
 interface CharacterStats {
-	ageModifier: number;
+    ageModifier: number; // This is not really a stat, should be moved to some modifier structure
 	strength: number;
 	dexterity: number;
 	intelligence: number;

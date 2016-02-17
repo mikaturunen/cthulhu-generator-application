@@ -6,3 +6,8 @@
 /release/components/jquery
 /release/components/polymer
 /release/components/webcomponentsjs
+**/*.orig
+**/*_BACKUP_*
+**/*_BASE_*
+**/*_LOCAL_*
+**/*_REMOTE_*
