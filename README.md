@@ -10,7 +10,7 @@ The application is built with TypeScript and heavily uses ES6 features of JavaSc
 
 * < insert database once decided >
 * Node.js
-* Angular (A2 or Polymer maybe?)
+* Polymer
 
 #### Technologies
 
