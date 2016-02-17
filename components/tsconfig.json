@@ -16,7 +16,10 @@
     "files": [
         "../typedefinitions/frontend.d.ts",
         "../typedefinitions/imd/IMD.d.ts",
-        "./cthulhu-application/cthulhu-application.ts"
+        "../typedefinitions/cthulhu.d.ts",
+        "./cthulhu-application/cthulhu-application.ts",
+        "./cthulhu-login/cthulhu-login.ts",
+        "./cthulhu-style/cthulhu-style.ts"
     ],
     "atom": {
         "rewriteTsconfig": true
