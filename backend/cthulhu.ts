@@ -7,11 +7,13 @@ import express from "express";
 import * as path from "path";
 import { createNewCharacter } from "./character/character";
 
+const favicon = require("serve-favicon");
 const app = express();
 
 // NOTE this is required by Heroku. Heroku heavily relies on environmental variables like this.
 app.set("port", (process.env.PORT || 3000));
 
+app.use(favicon(path.join(__dirname, "../components/favicon.ico")));
 app.use("/components", express.static(path.join(__dirname, "../components")));
 
 app.get("/", (request: express.Request, response: express.Response) => {

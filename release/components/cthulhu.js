@@ -16,9 +16,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 require("babel-polyfill");
 
+var favicon = require("serve-favicon");
 var app = (0, _express2.default)();
 
 app.set("port", process.env.PORT || 3000);
+app.use(favicon(path.join(__dirname, "../components/favicon.ico")));
 app.use("/components", _express2.default.static(path.join(__dirname, "../components")));
 app.get("/", function (request, response) {
     response.sendFile(path.join(__dirname, "../components/index.html"));
