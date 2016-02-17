@@ -1,0 +1,9 @@
+:host button[is-primary] {
+  color: var(--text-color);
+  background: var(--primary-button-color);
+}
+:host button {
+  padding: var(--default-padding);
+  color: var(--text-color);
+  min-width: 7em;
+}
