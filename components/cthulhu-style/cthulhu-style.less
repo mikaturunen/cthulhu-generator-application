@@ -1,0 +1,38 @@
+
+// MIX AND MATCH
+// First we declare our Less variables for different values and outside of this file we take advantage
+// of the numerous css variables "--variable" as the other files have no idea of the Less variables
+// declared in the context of this Less file during compilation time, magix. CSS is being used during runtime.
+// Using the css variables outside this file in the known runtime context happens through "var(--text-color)".
+
+// Less variables
+@textColor:				#1C2B1B;
+@backgroundColor: 		white;
+@primaryButtonColor:	#FFFFFF;
+@borderColor:			#e5e5e5;
+
+
+// CSS variables
+:host {
+	--text-color: 				@textColor;
+	--background-color:			@backgroundColor;
+	--primary-button-color:		@primaryButtonColor;
+	--border:					1px solid @borderColor;
+	--card-min-width:			200px;
+	--default-margin:			0.5em;
+	--default-padding:			0.25em;
+	--no-border:				0px solid white;
+}
+
+// CSS usage
+:host {
+	color: var(--text-color);
+}
+
+:host .card {
+	padding: 0.5em;
+	border: var(--border);
+	min-width: 200px;
+	color: var(--text-color);
+	background: white;
+}
