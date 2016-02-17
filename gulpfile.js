@@ -13,8 +13,13 @@ var babel = require("gulp-babel");
 var path = require("path");
 var jade = require("gulp-jade");
 var notify = require("gulp-notify");
+var less = require("gulp-less");
+var combiner = require("stream-combiner2");
 
 var typeScriptDestination = "./release/";
+
+// Used to stop the 'watch' behavior from breaking on emited errors, errors should stop the process
+// in all other cases but 'watch' as 'watch' is ongoing, iterating, always on process :)
 var globalEmit = false;
 
 var createTypeScriptTaskForTargets = function(typescriptSources, outputDirectory) {
@@ -70,13 +75,29 @@ gulp.task("jade", function() {
 
     if(globalEmit === false) {
         j.on('error', notify.onError(function (error) {
-            return 'An error occurred while compiling jade.\nLook in the console for details.\n' + error;
+            return 'An error occurred while compiling Jade.\nLook in the console for details.\n' + error;
         }));
     }
 
     return gulp.src("./components/**/*.jade")
         .pipe(j)
         .pipe(gulp.dest("./release/components"));
+});
+
+gulp.task("less", function() {
+    var combined = combiner.obj([
+        gulp.src("./components/**/*.less"),
+        less(),
+        gulp.dest("./release/components")
+    ]);
+
+    if (globalEmit === false) {
+        combined.on("error", notify.onError(function (error) {
+            return 'An error occurred while compiling Less.\nLook in the console for details.\n' + error;
+        }))
+    }
+
+    return combined;
 });
 
 /**
@@ -109,6 +130,14 @@ gulp.task("w", function() {
             "jade"
         ]
     );
+
+    gulp.watch([
+            "./components/**/*.less"
+        ],
+        [
+            "less"
+        ]
+    );
 });
 
 /**
@@ -117,6 +146,11 @@ gulp.task("w", function() {
 gulp.task("default", function() {
     globalEmit = true;
     return sequence(
-        [ "ts-back", "jade", "ts-front" ]
+        [
+            "ts-back",
+            "ts-front",
+            "jade",
+            "less"
+        ]
     );
 });
