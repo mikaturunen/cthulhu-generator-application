@@ -8,6 +8,9 @@
   --default-padding: 0.25em;
   --no-border: 0px solid white;
 }
+* {
+  font-family: "Roboto";
+}
 :host {
   color: var(--text-color);
 }
