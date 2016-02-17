@@ -23,7 +23,6 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.2.0",
-    "imd": "PolymerLabs/IMD#^1.0.0",
-    "bootstrap": "~3.3.6"
+    "imd": "PolymerLabs/IMD#^1.0.0"
   }
 }
