@@ -1,9 +1,39 @@
+:host button {
+  outline: 0;
+  padding: var(--default-padding);
+  min-width: 7em;
+  border-radius: var(--default-round-corner);
+}
+:host button:focus {
+  outline: none;
+}
 :host button[is-primary] {
-  color: var(--text-color);
-  background: var(--primary-button-color);
+  color: var(--primary-button-text-color);
+  background: var(--primary-button-background-color);
+  border: var(--no-border);
+}
+:host button[is-primary]:hover {
+  color: var(--primary-button-text-color-hover);
+  background: var(--primary-button-background-color-hover);
+  border: var(--no-border);
+}
+:host button[is-primary]:active {
+  color: var(--primary-button-text-color-active);
+  background: var(--primary-button-background-color-active);
+  border: var(--no-border);
 }
 :host button {
-  padding: var(--default-padding);
-  color: var(--text-color);
-  min-width: 7em;
+  color: var(--secondary-button-text-color);
+  background: var(--secondary-button-background-color);
+  border: 1px solid var(--secondary-button-text-color);
+}
+:host button:hover {
+  color: var(--secondary-button-text-color-hover);
+  background: var(--secondary-button-background-color-hover);
+  border: 1px solid var(--secondary-button-text-color-hover);
+}
+:host button:active {
+  color: var(--secondary-button-text-color-active);
+  background: var(--secondary-button-background-color-active);
+  border: 1px solid var(--secondary-button-text-color-active);
 }

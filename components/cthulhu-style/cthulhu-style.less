@@ -6,22 +6,55 @@
 // Using the css variables outside this file in the known runtime context happens through "var(--text-color)".
 
 // Less variables
-@textColor:				#1C2B1B;
-@backgroundColor: 		white;
-@primaryButtonColor:	#FFFFFF;
-@borderColor:			#e5e5e5;
+// I have no real idea about the colors, I just smacked some together and tried not to cry too much, we
+// might want to look into them together... :D but yeah, I've got strong ideas on "how" to use them
+// but absolutely zero idea on what colors to use. I can do UX but I can't do design :7
+
+@primaryColor1:				#658E5A;	// normal
+@primaryColor2:				#53734A;	// hover
+@primaryColor3:				#3B4F36; 	// active, they get darker as the state of the element "decreases"
+
+@textColor:					#1C2B1B;
+@backgroundColor: 			white;
+@primaryButtonColor1:		@primaryColor1;
+@primaryButtonTextColor1:	white;
+@primaryButtonColor2:		@primaryColor2;
+@primaryButtonTextColor2:	white;
+@primaryButtonColor3:		@primaryColor3;
+@primaryButtonTextColor3:	white;
+@secondaryButtonColor1:		white;
+@secondaryButtonTextColor1:	@primaryColor1;
+@secondaryButtonColor2:		white;
+@secondaryButtonTextColor2:	@primaryColor2;
+@secondaryButtonColor3:		white;
+@secondaryButtonTextColor3:	@primaryColor3;
+@borderColor:				#e5e5e5;
 
 
-// CSS variables
+// CSS variables, use these inside other LESS files.
 :host {
-	--text-color: 				@textColor;
-	--background-color:			@backgroundColor;
-	--primary-button-color:		@primaryButtonColor;
-	--border:					1px solid @borderColor;
-	--card-min-width:			200px;
-	--default-margin:			0.5em;
-	--default-padding:			0.25em;
-	--no-border:				0px solid white;
+	--text-color: 								@textColor;
+	--background-color:							@backgroundColor;
+	--border:									1px solid @borderColor;
+	--card-min-width:							200px;
+	--default-margin:							0.5em;
+	--default-padding:							0.25em;
+	--no-border:								none;
+	--default-round-corner:						3px;
+
+	--primary-button-background-color:  		@primaryButtonColor1;
+	--primary-button-text-color:				@primaryButtonTextColor1;
+	--primary-button-background-color-hover:  	@primaryButtonColor2;
+	--primary-button-text-color-hover:			@primaryButtonTextColor2;
+	--primary-button-background-color-active:  	@primaryButtonColor3;
+	--primary-button-text-color-active:			@primaryButtonTextColor3;
+
+	--secondary-button-background-color: 		@secondaryButtonColor1;
+	--secondary-button-text-color:				@secondaryButtonTextColor1;
+	--secondary-button-background-color-hover: 	@secondaryButtonColor2;
+	--secondary-button-text-color-hover:		@secondaryButtonTextColor2;
+	--secondary-button-background-color-active: @secondaryButtonColor3;
+	--secondary-button-text-color-active:		@secondaryButtonTextColor3;
 }
 
 * {

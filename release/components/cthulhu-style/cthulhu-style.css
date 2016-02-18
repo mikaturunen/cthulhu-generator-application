@@ -1,12 +1,24 @@
 :host {
   --text-color: #1C2B1B;
   --background-color: white;
-  --primary-button-color: #FFFFFF;
   --border: 1px solid #e5e5e5;
   --card-min-width: 200px;
   --default-margin: 0.5em;
   --default-padding: 0.25em;
-  --no-border: 0px solid white;
+  --no-border: none;
+  --default-round-corner: 3px;
+  --primary-button-background-color: #658E5A;
+  --primary-button-text-color: white;
+  --primary-button-background-color-hover: #53734A;
+  --primary-button-text-color-hover: white;
+  --primary-button-background-color-active: #3B4F36;
+  --primary-button-text-color-active: white;
+  --secondary-button-background-color: white;
+  --secondary-button-text-color: #658E5A;
+  --secondary-button-background-color-hover: white;
+  --secondary-button-text-color-hover: #53734A;
+  --secondary-button-background-color-active: white;
+  --secondary-button-text-color-active: #3B4F36;
 }
 * {
   font-family: "Roboto";
