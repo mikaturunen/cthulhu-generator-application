@@ -1,6 +1,6 @@
 # cthulhu-generator-application
 
-Application for generating characters for Roleplaying game Cthulhu.
+Application for generating characters for Roleplaying game Call of Cthulhu.
 
 ## Running development environment
 
