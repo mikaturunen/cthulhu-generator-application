@@ -54,7 +54,7 @@ gulp.task("ts-back", function() {
             "./typedefinitions/cthulhu.d.ts",
             "./backend/**/*.ts"
         ],
-        path.join(typeScriptDestination, "/components")
+        path.join(typeScriptDestination, "/backend")
     );
 });
 

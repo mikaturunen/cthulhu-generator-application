@@ -20,21 +20,21 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var strategyGoogle = passportGoogle.OAuth2Strategy;
 
-passport.serializeUser(function (user, done) {
-    done(null, user);
-});
-passport.deserializeUser(function (obj, done) {
-    done(null, obj);
-});
 passport.use(new strategyGoogle({
-    clientID: process.env["GOOGLE_CLIENT_ID"],
-    clientSecret: process.env["GOOGLE_CLIENT_SECRET"],
+    clientID: process.env["GOOGLE_CLIENT_ID"] || "cat",
+    clientSecret: process.env["GOOGLE_CLIENT_SECRET"] || "doge",
 
     callbackURL: "http://www.example.com/auth/google/callback"
 }, function (accessToken, refreshToken, profile, done) {
     console.log("Profile #:", profile);
     done(null, profile);
 }));
+passport.serializeUser(function (user, done) {
+    done(null, user);
+});
+passport.deserializeUser(function (obj, done) {
+    done(null, obj);
+});
 var Authentication;
 (function (Authentication) {
     function connectToExpress(app) {

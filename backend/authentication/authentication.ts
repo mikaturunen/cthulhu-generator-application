@@ -19,19 +19,12 @@ const strategyGoogle = passportGoogle.OAuth2Strategy;
  * and deserialized.
  */
 
-passport.serializeUser((user: any, done: (error: Error, user: any) => void) => {
-	done(null, user);
-});
-
-passport.deserializeUser((obj: any, done: (error: Error, obj: any) => void) => {
-	done(null, obj);
-});
 
 passport.use(new strategyGoogle({
 		// NOTE the real ID's are hidden in build servers and in developers environment,
 		// 		never pushed to Git.
-		clientID: process.env["GOOGLE_CLIENT_ID"],
-		clientSecret: process.env["GOOGLE_CLIENT_SECRET"],
+		clientID: process.env["GOOGLE_CLIENT_ID"] || "cat",
+		clientSecret: process.env["GOOGLE_CLIENT_SECRET"] || "doge",
 		// This URL needs to be configured into the local /etc/host
 		callbackURL: "http://www.example.com/auth/google/callback"
 	},
@@ -46,6 +39,14 @@ passport.use(new strategyGoogle({
 		done(null, profile);
 	}
 ));
+
+passport.serializeUser((user: any, done: (error: Error, user: any) => void) => {
+	done(null, user);
+});
+
+passport.deserializeUser((obj: any, done: (error: Error, obj: any) => void) => {
+	done(null, obj);
+});
 
 namespace Authentication {
 	/**
