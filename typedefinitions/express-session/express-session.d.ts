@@ -69,5 +69,5 @@ declare module "express-session" {
     }
   }
 
-  export = session;
+  export default session;
 }

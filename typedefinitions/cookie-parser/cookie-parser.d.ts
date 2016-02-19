@@ -7,7 +7,6 @@
 
 declare module "cookie-parser" {
 	import express from "express";
-    function e(secret?: string, options?: any): express.RequestHandler;
-    namespace e{}
-    export = e;
+	function e(secret?: string, options?: any): express.RequestHandler;
+	export default e;
 }

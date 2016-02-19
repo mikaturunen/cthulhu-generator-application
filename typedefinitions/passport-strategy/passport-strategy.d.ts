@@ -13,7 +13,7 @@
 
 declare module 'passport-strategy' {
 	import express from "express";
-	import * as passport from "passport";
+	import passport from "passport";
 
     class Strategy implements passport.Strategy {
         /**
