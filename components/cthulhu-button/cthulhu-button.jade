@@ -1,13 +1,11 @@
-//- List of external dependencies
 link(rel="import" href="../../components/polymer/polymer.html")
-//- Application specific components / dependencies
 link(rel="import" href="../../components/cthulhu-style/cthulhu-style.html")
 
 //- Button component for Cthulhu.
-	Usage:
-
-		button(is-primary="false")
-			span What possible text or other content we might want to have in the button?
+//-	Usage:
+//-
+//-		button(is-primary="false")
+//-			span What possible text or other content we might want to have in the button?
 
 dom-module#cthulhu-button
 	link(rel="import" type="css" href="../../components/cthulhu-button/cthulhu-button.css")
@@ -17,4 +15,4 @@ dom-module#cthulhu-button
 		button(is-primary$="[[ isPrimary ]]")
 			content
 
-	script(src="cthulhu-button.js")
+	script(src="../../components/cthulhu-button/cthulhu-button.js")

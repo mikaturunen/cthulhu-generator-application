@@ -1,17 +1,17 @@
-//- List of external dependencies
 link(rel="import" href="../../components/polymer/polymer.html")
 
+
+//-	Styling component for Cthulhu character generation application.
+//-	Packs all the common styling functionality that is shared among the components. We use Bootstrap as our
+//-	baseline for styling and define our own styles on top of the existing components.
 //-
-	Styling component for Cthulhu character generation application.
-	Packs all the common styling functionality that is shared among the components. We use Bootstrap as our
-	baseline for styling and define our own styles on top of the existing components.
+//-	All cthulhu components need to import the styling component if they have any UI functionality and then
+//-	do the following in their template:
+//-
+//-		template
+//-			style(include="cthulhu-style")
 
-	All cthulhu components need to import the styling component if they have any UI functionality and then
-	do the following in their template:
-
-		template
-			style(include="cthulhu-style")
-
+// The font loading does not work inside dom-module 
 style
 	include ../../release/components/cthulhu-style/font.css
 
