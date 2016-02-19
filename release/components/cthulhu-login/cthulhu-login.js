@@ -2,6 +2,10 @@
 
 define("cthulhuLogin", [], function () {
     Polymer({
-        is: "cthulhu-login"
+        is: "cthulhu-login",
+
+        handleRedirectLogin: function handleRedirectLogin() {
+            window.location.href = "http://google.com";
+        }
     });
 });

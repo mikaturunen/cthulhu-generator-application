@@ -18,6 +18,7 @@
         "../typedefinitions/imd/IMD.d.ts",
         "../typedefinitions/cthulhu.d.ts",
         "./cthulhu-application/cthulhu-application.ts",
+        "./cthulhu-button/cthulhu-button.ts",
         "./cthulhu-login/cthulhu-login.ts",
         "./cthulhu-style/cthulhu-style.ts"
     ],
