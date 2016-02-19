@@ -6,21 +6,20 @@ Object.defineProperty(exports, "__esModule", {
 
 var _passport = require("passport");
 
-var passport = _interopRequireWildcard(_passport);
+var _passport2 = _interopRequireDefault(_passport);
 
 var _expressSession = require("express-session");
 
-var session = _interopRequireWildcard(_expressSession);
+var _expressSession2 = _interopRequireDefault(_expressSession);
 
 var _passportGoogleOauth = require("passport-google-oauth");
 
-var passportGoogle = _interopRequireWildcard(_passportGoogleOauth);
+var _passportGoogleOauth2 = _interopRequireDefault(_passportGoogleOauth);
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var strategyGoogle = passportGoogle.OAuth2Strategy;
-
-passport.use(new strategyGoogle({
+var strategyGoogle = _passportGoogleOauth2.default.OAuth2Strategy;
+_passport2.default.use(new strategyGoogle({
     clientID: process.env["GOOGLE_CLIENT_ID"] || "cat",
     clientSecret: process.env["GOOGLE_CLIENT_SECRET"] || "doge",
 
@@ -29,24 +28,29 @@ passport.use(new strategyGoogle({
     console.log("Profile #:", profile);
     done(null, profile);
 }));
-passport.serializeUser(function (user, done) {
+_passport2.default.serializeUser(function (user, done) {
+    console.log("Serialize:", user);
     done(null, user);
 });
-passport.deserializeUser(function (obj, done) {
+_passport2.default.deserializeUser(function (obj, done) {
+    console.log("Deserialize:", obj);
     done(null, obj);
 });
 var Authentication;
 (function (Authentication) {
     function connectToExpress(app) {
-        app.use(session({
-            secret: "TEST-123"
+        app.use((0, _expressSession2.default)({
+            secret: "TEST-123",
+            resave: true,
+            saveUninitialized: true
         }));
-        app.use(passport.initialize());
-        app.use(passport.session());
+        app.use(_passport2.default.initialize());
+        app.use(_passport2.default.session());
     }
     Authentication.connectToExpress = connectToExpress;
+
     function authenticate() {
-        return passport.authenticate("google", {
+        return _passport2.default.authenticate("google", {
             successRedirect: "/ok",
             failureRedirect: "/"
         });

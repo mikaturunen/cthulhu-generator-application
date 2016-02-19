@@ -12,7 +12,15 @@ var _express = require("express");
 
 var _express2 = _interopRequireDefault(_express);
 
+var _cookieParser = require("cookie-parser");
+
+var _cookieParser2 = _interopRequireDefault(_cookieParser);
+
 var _character = require("./character/character");
+
+var _authentication = require("./authentication/authentication");
+
+var _authentication2 = _interopRequireDefault(_authentication);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27,16 +35,18 @@ var app = (0, _express2.default)();
     app.set("port", process.env.PORT || 3000);
 }
 {
+    app.use((0, _cookieParser2.default)());
     app.use(parser.json());
     app.use(parser.urlencoded({ extended: true }));
     app.use(favicon(path.join(__dirname, "../components/favicon.ico")));
     app.use("/components", _express2.default.static(path.join(__dirname, "../components")));
+    _authentication2.default.connectToExpress(app);
 }
 {
     app.get("/", function (request, response) {
         response.sendFile(path.join(__dirname, "../components/index.html"));
     });
-
+    app.get("/auth", _authentication2.default.authenticate);
     app.get("/character", function (request, response) {
         response.json((0, _character.createNewCharacter)());
     });

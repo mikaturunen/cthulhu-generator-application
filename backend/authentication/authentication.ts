@@ -4,21 +4,11 @@
 // use the default export as "import passport from 'passport'".
 
 import express from "express";
-import * as passport from "passport";
-import * as session from "express-session";
-import * as passportGoogle from "passport-google-oauth";
+import passport from "passport";
+import session from "express-session";
+import passportGoogle from "passport-google-oauth";
 
 const strategyGoogle = passportGoogle.OAuth2Strategy;
-
-/*
- * To support persistent login sessions, Passport needs to be able to
- * serialize users into and deserialize users out of the session.  Typically,
- * this will be as simple as storing the user ID when serializing, and finding
- * the user by ID when deserializing.  However, since this example does not
- * have a database of user records, the complete Google profile is serialized
- * and deserialized.
- */
-
 
 passport.use(new strategyGoogle({
 		// NOTE the real ID's are hidden in build servers and in developers environment,
@@ -41,10 +31,12 @@ passport.use(new strategyGoogle({
 ));
 
 passport.serializeUser((user: any, done: (error: Error, user: any) => void) => {
+	console.log("Serialize:", user);
 	done(null, user);
 });
 
 passport.deserializeUser((obj: any, done: (error: Error, obj: any) => void) => {
+	console.log("Deserialize:", obj);
 	done(null, obj);
 });
 
@@ -55,12 +47,17 @@ namespace Authentication {
 	 */
 	export function connectToExpress(app: express.Application) {
 		app.use(session({
-			secret: "TEST-123"
+			secret: "TEST-123",
+			resave: true,
+			saveUninitialized: true
 		}));
 		app.use(passport.initialize());
 		app.use(passport.session());
 	}
 
+	/**
+	 * Authenticates the request against google's authentication strategy.
+	 */
 	export function authenticate() {
 		return passport.authenticate("google", {
 			// Temp urls, just here for my personal testing :)

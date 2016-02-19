@@ -4,11 +4,11 @@
 require("babel-polyfill");
 
 import * as path from "path";
-// import * as cookieParser from "cookie-parser";
 import * as parser from "body-parser";
 import express from "express";
+import cookieParser from "cookie-parser";
 import { createNewCharacter } from "./character/character";
-// import authentication from "./authentication/authentication";
+import authentication from "./authentication/authentication";
 
 const favicon = require("serve-favicon");
 const app = express();
@@ -22,14 +22,14 @@ const app = express();
 }
 
 {	// Setting middlewares for Express
-	// app.use(cookieParser());
+	app.use(cookieParser());
 	app.use(parser.json());
 	app.use(parser.urlencoded({ extended: true }));
 
 	app.use(favicon(path.join(__dirname, "../components/favicon.ico")));
 	app.use("/components", express.static(path.join(__dirname, "../components")));
 
-	// authentication.connectToExpress(app);
+	authentication.connectToExpress(app);
 }
 
 {	// Setting Express routes
@@ -37,7 +37,7 @@ const app = express();
 		response.sendFile(path.join(__dirname, "../components/index.html"));
 	});
 
-	// app.get("/auth", authentication.authenticate);
+	app.get("/auth", authentication.authenticate);
 
 	app.get("/character", (request: express.Request, response: express.Response) => {
 		response.json(createNewCharacter());
