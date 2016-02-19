@@ -46,6 +46,7 @@ var app = (0, _express2.default)();
     app.get("/", function (request, response) {
         response.sendFile(path.join(__dirname, "../components/index.html"));
     });
+    app.get("/auth", _authentication2.default.authenticate);
     app.get("/character", function (request, response) {
         response.json((0, _character.createNewCharacter)());
     });

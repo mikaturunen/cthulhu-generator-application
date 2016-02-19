@@ -37,6 +37,8 @@ const app = express();
 		response.sendFile(path.join(__dirname, "../components/index.html"));
 	});
 
+	app.get("/auth", authentication.authenticate);
+
 	app.get("/character", (request: express.Request, response: express.Response) => {
 		response.json(createNewCharacter());
 	});
