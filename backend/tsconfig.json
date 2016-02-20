@@ -20,7 +20,9 @@
         "./character/die.ts",
         "./character/random.ts",
         "./character/rules.ts",
-        "./cthulhu.ts"
+        "./cthulhu.ts",
+        "./environment/environment.ts",
+        "./log/log.ts"
     ],
     "atom": {
         "rewriteTsconfig": true

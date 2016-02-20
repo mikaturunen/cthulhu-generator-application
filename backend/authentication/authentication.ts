@@ -7,16 +7,18 @@ import express from "express";
 import passport from "passport";
 import session from "express-session";
 import passportGoogle from "passport-google-oauth";
+import { getEnvironmentalVariable } from "../environment/environment";
 
 const strategyGoogle = passportGoogle.OAuth2Strategy;
 
 passport.use(new strategyGoogle({
 		// NOTE the real ID's are hidden in build servers and in developers environment,
-		// 		never pushed to Git.
-		clientID: process.env["GOOGLE_CLIENT_ID"] || "cat",
-		clientSecret: process.env["GOOGLE_CLIENT_SECRET"] || "doge",
-		// This URL needs to be configured into the local /etc/host
-		callbackURL: "http://www.example.com/auth/google/callback"
+		// 		never pushed to Git. Find them in our private conversations too :)
+		clientID: getEnvironmentalVariable("GOOGLE_CLIENT_ID", "NO CLIENT ID IN PLACE, SETUP! OAUTH2 WILL NOT WORK!"),
+		clientSecret: getEnvironmentalVariable("GOOGLE_CLIENT_SECRET", "NO CLIENT SECRET IN PLACE, SETUP! OAUTH2 WILL NOT WORK!"),
+		// This URL needs to be configured into the local /etc/host to point to 127.0.0.1 so local env works with
+		// google ->
+		callbackURL: "http://localhost:3000/return"
 	},
 	(
 		accessToken: string,
@@ -47,7 +49,7 @@ namespace Authentication {
 	 */
 	export function connectToExpress(app: express.Application) {
 		app.use(session({
-			secret: "TEST-123",
+			secret: getEnvironmentalVariable("SESSION_SECRET_KEY", "LOCAL_SESSION_SECRET-123"),
 			resave: true,
 			saveUninitialized: true
 		}));
