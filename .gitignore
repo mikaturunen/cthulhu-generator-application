@@ -12,3 +12,4 @@
 **/*_LOCAL_*
 **/*_REMOTE_*
 npm-debug.log
+.DS_Store
