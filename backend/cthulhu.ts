@@ -45,13 +45,11 @@ printProductionStatus();
 		response.sendFile(path.join(__dirname, "../components/google46f5c1efa1dd1848.html"));
 	});
 
-	app.get("/auth", authentication.authenticate);
-
 	app.get("/character", (request: express.Request, response: express.Response) => {
 		response.json(createNewCharacter());
 	});
 
-
+	authentication.authenticate(app);
 }
 
 // Starting the application

@@ -53,10 +53,10 @@ var app = (0, _express2.default)();
     app.get("/google46f5c1efa1dd1848.html", function (request, response) {
         response.sendFile(path.join(__dirname, "../components/google46f5c1efa1dd1848.html"));
     });
-    app.get("/auth", _authentication2.default.authenticate);
     app.get("/character", function (request, response) {
         response.json((0, _character.createNewCharacter)());
     });
+    _authentication2.default.authenticate(app);
 }
 
 app.listen(app.get("port"), function () {

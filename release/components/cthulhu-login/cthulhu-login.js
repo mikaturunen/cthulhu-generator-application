@@ -5,7 +5,7 @@ define("cthulhuLogin", [], function () {
         is: "cthulhu-login",
 
         handleRedirectLogin: function handleRedirectLogin() {
-            window.location.href = "http://google.com";
+            window.location.href = "/auth/google";
         }
     });
 });

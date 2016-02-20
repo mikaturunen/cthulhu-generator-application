@@ -24,7 +24,7 @@ namespace Authentication {
 				clientSecret: getEnvironmentalVariable("GOOGLE_CLIENT_SECRET", "NO CLIENT SECRET IN PLACE, SETUP! OAUTH2 WILL NOT WORK!"),
 				// This URL needs to be configured into the local /etc/host to point to 127.0.0.1 so local env works with
 				// google ->
-				callbackURL: "http://localhost:3000/return"
+				callbackURL: "http://localhost:3000"
 			},
 			(
 				accessToken: string,
@@ -59,12 +59,37 @@ namespace Authentication {
 
 	/**
 	 * Authenticates the request against google's authentication strategy.
+	 * @param {express.Application} app Express application created with express().
 	 */
-	export function authenticate() {
-		return passport.authenticate("google", {
+	export function authenticate(app: express.Application) {
+		interface LogoutRequest extends express.Request {
+			logout: () => void;
+		};
+
+		// Use passport.authenticate() as route middleware to authenticate the
+		// request.  The first step in Google authentication will involve
+		// redirecting the user to google.com.  After authorization, Google
+		// will redirect the user back to this application at /auth/google/callback
+		app.get("/auth/google", passport.authenticate("google", {
+			scope: [
+				"https://www.googleapis.com/auth/plus.login",
+				"https://www.googleapis.com/auth/plus.profile.emails.read"
+			]
+		}));
+
+		// Use passport.authenticate() as route middleware to authenticate the
+		// request. If authentication fails, the user will be redirected back to the
+		// login page. Otherwise, the primary route function function will be called,
+		// which, in this example, will redirect the user to the home page.
+		app.get("auth/google/callback", passport.authenticate("google", {
 			// Temp urls, just here for my personal testing :)
 			successRedirect: "/ok",
 			failureRedirect: "/"
+		}));
+
+		app.get("/logout", (request: LogoutRequest, response: express.Response) => {
+			request.logout();
+			response.redirect("/");
 		});
 	}
 }

@@ -28,7 +28,7 @@ var Authentication;
             clientID: (0, _environment.getEnvironmentalVariable)("GOOGLE_CLIENT_ID", "NO CLIENT ID IN PLACE, SETUP! OAUTH2 WILL NOT WORK!"),
             clientSecret: (0, _environment.getEnvironmentalVariable)("GOOGLE_CLIENT_SECRET", "NO CLIENT SECRET IN PLACE, SETUP! OAUTH2 WILL NOT WORK!"),
 
-            callbackURL: "http://localhost:3000/return"
+            callbackURL: "http://localhost:3000"
         }, function (accessToken, refreshToken, profile, done) {
             console.log("Profile #:", profile);
             done(null, profile);
@@ -51,10 +51,20 @@ var Authentication;
     }
     Authentication.connectToExpress = connectToExpress;
 
-    function authenticate() {
-        return _passport2.default.authenticate("google", {
+    function authenticate(app) {
+        ;
+
+        app.get("/auth/google", _passport2.default.authenticate("google", {
+            scope: ["https://www.googleapis.com/auth/plus.login", "https://www.googleapis.com/auth/plus.profile.emails.read"]
+        }));
+
+        app.get("auth/google/callback", _passport2.default.authenticate("google", {
             successRedirect: "/ok",
             failureRedirect: "/"
+        }));
+        app.get("/logout", function (request, response) {
+            request.logout();
+            response.redirect("/");
         });
     }
     Authentication.authenticate = authenticate;

@@ -13,7 +13,7 @@ define("cthulhuLogin", [], () => {
 		 */
 		handleRedirectLogin: function() {
 			// not implemented yet, don't get any ideas :) Just a placeholder lal
-			window.location.href = "http://google.com";
+			window.location.href = "/auth/google";
 		}
 	});
 });
