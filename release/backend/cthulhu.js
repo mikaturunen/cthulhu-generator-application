@@ -22,6 +22,8 @@ var _authentication = require("./authentication/authentication");
 
 var _authentication2 = _interopRequireDefault(_authentication);
 
+var _environment = require("./environment/environment");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -30,6 +32,7 @@ require("babel-polyfill");
 
 var favicon = require("serve-favicon");
 var app = (0, _express2.default)();
+(0, _environment.printProductionStatus)();
 
 {
     app.set("port", process.env.PORT || 3000);

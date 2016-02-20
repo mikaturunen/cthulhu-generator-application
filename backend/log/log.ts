@@ -14,7 +14,7 @@ namespace Log {
 	 * @param {string} message Message to log.
 	 */
 	export function trace(message: string) {
-		console.log("[debug ]: " + message);
+		console.log("[debug]: " + message);
 	}
 
 	/**

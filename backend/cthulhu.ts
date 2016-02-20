@@ -9,9 +9,12 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import { createNewCharacter } from "./character/character";
 import authentication from "./authentication/authentication";
+import { printProductionStatus } from "./environment/environment";
 
 const favicon = require("serve-favicon");
 const app = express();
+
+printProductionStatus();
 
 // Using block-scoping for no real reason. Makes it easier to see what happens and where,
 // will probably move the separate blocks into their own files once they grow a bit more.
