@@ -16,12 +16,14 @@ var _passportGoogleOauth = require("passport-google-oauth");
 
 var _passportGoogleOauth2 = _interopRequireDefault(_passportGoogleOauth);
 
+var _environment = require("../environment/environment");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var strategyGoogle = _passportGoogleOauth2.default.OAuth2Strategy;
 _passport2.default.use(new strategyGoogle({
-    clientID: process.env["GOOGLE_CLIENT_ID"] || "cat",
-    clientSecret: process.env["GOOGLE_CLIENT_SECRET"] || "doge",
+    clientID: (0, _environment.getEnvironmentalVariable)("GOOGLE_CLIENT_ID"),
+    clientSecret: (0, _environment.getEnvironmentalVariable)("GOOGLE_CLIENT_SECRET"),
 
     callbackURL: "http://www.example.com/auth/google/callback"
 }, function (accessToken, refreshToken, profile, done) {

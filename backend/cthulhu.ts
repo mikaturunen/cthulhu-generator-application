@@ -8,7 +8,7 @@ import * as parser from "body-parser";
 import express from "express";
 import cookieParser from "cookie-parser";
 import { createNewCharacter } from "./character/character";
-import authentication from "./authentication/authentication";
+// import authentication from "./authentication/authentication";
 
 const favicon = require("serve-favicon");
 const app = express();
@@ -29,7 +29,7 @@ const app = express();
 	app.use(favicon(path.join(__dirname, "../components/favicon.ico")));
 	app.use("/components", express.static(path.join(__dirname, "../components")));
 
-	authentication.connectToExpress(app);
+	// authentication.connectToExpress(app);
 }
 
 {	// Setting Express routes
@@ -37,11 +37,18 @@ const app = express();
 		response.sendFile(path.join(__dirname, "../components/index.html"));
 	});
 
-	app.get("/auth", authentication.authenticate);
+	// Used for Google verification - do NOT remove this or cthulhu-charactres.herokuapp.com gets unverified by Google
+	app.get("/google46f5c1efa1dd1848.html", (request: express.Request, response: express.Response) => {
+		response.sendFile(path.join(__dirname, "../components/google46f5c1efa1dd1848.html"));
+	});
+
+	// app.get("/auth", authentication.authenticate);
 
 	app.get("/character", (request: express.Request, response: express.Response) => {
 		response.json(createNewCharacter());
 	});
+
+
 }
 
 // Starting the application
