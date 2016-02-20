@@ -27,8 +27,7 @@ var Authentication;
         _passport2.default.use(new strategyGoogle({
             clientID: (0, _environment.getEnvironmentalVariable)("GOOGLE_CLIENT_ID", "NO CLIENT ID IN PLACE, SETUP! OAUTH2 WILL NOT WORK!"),
             clientSecret: (0, _environment.getEnvironmentalVariable)("GOOGLE_CLIENT_SECRET", "NO CLIENT SECRET IN PLACE, SETUP! OAUTH2 WILL NOT WORK!"),
-
-            callbackURL: "http://localhost:3000"
+            callbackURL: (0, _environment.isInProduction)() ? "https://cthulhu-characters.herokuapp.com" : "http://localhost:3000"
         }, function (accessToken, refreshToken, profile, done) {
             console.log("Profile #:", profile);
             done(null, profile);

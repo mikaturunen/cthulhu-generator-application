@@ -29,3 +29,11 @@ export function getEnvironmentalVariable(variable: string, defaultValue?: string
 export function printProductionStatus() {
 	log.info("Application running in '" + production + "' mode.");
 };
+
+/**
+ * Truthy when running in production.
+ * @returns {Boolean} True when NODE_ENV is 'production'.
+ */
+export function isInProduction() {
+	return production === "production";
+}

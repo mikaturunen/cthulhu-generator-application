@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getEnvironmentalVariable = getEnvironmentalVariable;
 exports.printProductionStatus = printProductionStatus;
+exports.isInProduction = isInProduction;
 
 var _log = require("../log/log");
 
@@ -27,3 +28,6 @@ function printProductionStatus() {
     _log2.default.info("Application running in '" + production + "' mode.");
 }
 ;
+function isInProduction() {
+    return production === "production";
+}
