@@ -4,7 +4,7 @@
   "description": "Application for generating characters for Roleplaying game Cthulhu",
   "main": "node release/backend/cthulhu.js",
   "scripts": {
-    "postinstall": "",
+    "postinstall": "bower install && gulp",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc:w": "gulp w",
     "cthulhu": "supervisor -w release/ -e js -x node release/backend/cthulhu.js",
@@ -55,5 +55,10 @@
     "passport-google-oauth": "^1.0.0",
     "random-js": "^1.0.8",
     "serve-favicon": "^2.3.0"
-  }
+  },
+  "HEROKU-SPECIFIC": "all below",
+  "cacheDirectories": [
+	"node_modules",
+	"release"
+  ]
 }

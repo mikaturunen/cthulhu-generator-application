@@ -22,8 +22,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var strategyGoogle = _passportGoogleOauth2.default.OAuth2Strategy;
 _passport2.default.use(new strategyGoogle({
-    clientID: (0, _environment.getEnvironmentalVariable)("GOOGLE_CLIENT_ID"),
-    clientSecret: (0, _environment.getEnvironmentalVariable)("GOOGLE_CLIENT_SECRET"),
+    clientID: (0, _environment.getEnvironmentalVariable)("GOOGLE_CLIENT_ID", "NO CLIENT ID IN PLACE, SETUP! OAUTH2 WILL NOT WORK!"),
+    clientSecret: (0, _environment.getEnvironmentalVariable)("GOOGLE_CLIENT_SECRET", "NO CLIENT SECRET IN PLACE, SETUP! OAUTH2 WILL NOT WORK!"),
 
     callbackURL: "http://www.example.com/auth/google/callback"
 }, function (accessToken, refreshToken, profile, done) {
