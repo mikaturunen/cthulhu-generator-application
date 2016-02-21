@@ -26,8 +26,8 @@ namespace Authentication {
 				clientID: getEnvironmentalVariable("GOOGLE_CLIENT_ID", "NO CLIENT ID IN PLACE, SETUP! OAUTH2 WILL NOT WORK!"),
 				clientSecret: getEnvironmentalVariable("GOOGLE_CLIENT_SECRET", "NO CLIENT SECRET IN PLACE, SETUP! OAUTH2 WILL NOT WORK!"),
 				callbackURL: isInProduction() ?
-					"https://cthulhu-characters.herokuapp.com" :
-					"http://localhost:3000"
+					"https://cthulhu-characters.herokuapp.com/auth/google/callback" :
+					"http://localhost:3000/auth/google/callback"
 			},
 			(
 				accessToken: string,
@@ -75,8 +75,7 @@ namespace Authentication {
 		// will redirect the user back to this application at /auth/google/callback
 		app.get("/auth/google", passport.authenticate("google", {
 			scope: [
-				"https://www.googleapis.com/auth/plus.login",
-				"https://www.googleapis.com/auth/plus.profile.emails.read"
+				"https://www.googleapis.com/auth/plus.login"
 			]
 		}));
 
@@ -84,9 +83,8 @@ namespace Authentication {
 		// request. If authentication fails, the user will be redirected back to the
 		// login page. Otherwise, the primary route function function will be called,
 		// which, in this example, will redirect the user to the home page.
-		app.get("auth/google/callback", passport.authenticate("google", {
-			// Temp urls, just here for my personal testing :)
-			successRedirect: "/ok",
+		app.get("/auth/google/callback", passport.authenticate("google", {
+			successRedirect: "/front",
 			failureRedirect: "/"
 		}));
 

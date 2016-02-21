@@ -27,7 +27,7 @@ var Authentication;
         _passport2.default.use(new strategyGoogle({
             clientID: (0, _environment.getEnvironmentalVariable)("GOOGLE_CLIENT_ID", "NO CLIENT ID IN PLACE, SETUP! OAUTH2 WILL NOT WORK!"),
             clientSecret: (0, _environment.getEnvironmentalVariable)("GOOGLE_CLIENT_SECRET", "NO CLIENT SECRET IN PLACE, SETUP! OAUTH2 WILL NOT WORK!"),
-            callbackURL: (0, _environment.isInProduction)() ? "https://cthulhu-characters.herokuapp.com" : "http://localhost:3000"
+            callbackURL: (0, _environment.isInProduction)() ? "https://cthulhu-characters.herokuapp.com/auth/google/callback" : "http://localhost:3000/auth/google/callback"
         }, function (accessToken, refreshToken, profile, done) {
             console.log("Profile #:", profile);
             done(null, profile);
@@ -54,11 +54,11 @@ var Authentication;
         ;
 
         app.get("/auth/google", _passport2.default.authenticate("google", {
-            scope: ["https://www.googleapis.com/auth/plus.login", "https://www.googleapis.com/auth/plus.profile.emails.read"]
+            scope: ["https://www.googleapis.com/auth/plus.login"]
         }));
 
-        app.get("auth/google/callback", _passport2.default.authenticate("google", {
-            successRedirect: "/ok",
+        app.get("/auth/google/callback", _passport2.default.authenticate("google", {
+            successRedirect: "/front",
             failureRedirect: "/"
         }));
         app.get("/logout", function (request, response) {
