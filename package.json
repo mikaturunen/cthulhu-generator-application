@@ -20,8 +20,8 @@
     "url": "https://github.com/mikaturunen/cthulhu-generator-application/issues"
   },
   "engines": {
-    "node": ">4.0.0",
-    "npm": ">2.0.0"
+    "node": ">=5.6.0",
+    "npm": ">=3.7.3"
   },
   "homepage": "https://github.com/mikaturunen/cthulhu-generator-application#readme",
   "devDependencies": {
