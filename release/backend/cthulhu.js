@@ -24,6 +24,8 @@ var _authentication2 = _interopRequireDefault(_authentication);
 
 var _environment = require("./environment/environment");
 
+var _viewRoutes = require("./routes/view-routes");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -46,14 +48,12 @@ var app = (0, _express2.default)();
     _authentication2.default.connectToExpress(app);
 }
 {
-    app.get("/", function (request, response) {
-        response.sendFile(path.join(__dirname, "../components/index.html"));
-    });
+    (0, _viewRoutes.addViewIndexRoutesForSpa)(app);
 
     app.get("/google46f5c1efa1dd1848.html", function (request, response) {
         response.sendFile(path.join(__dirname, "../components/google46f5c1efa1dd1848.html"));
     });
-    app.get("/character", function (request, response) {
+    app.get("/getcharacter", function (request, response) {
         response.json((0, _character.createNewCharacter)());
     });
     _authentication2.default.authenticate(app);

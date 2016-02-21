@@ -1,0 +1,20 @@
+link(rel="import" href="../../components/polymer/polymer.html")
+link(rel="import" href="../../components/cthulhu-style/cthulhu-style.html")
+
+//- Main / front page view for Cthulhu. *-views are the components the app-router will be 
+//- swapping between as the user navigates to different paths in the application. Magix.
+//- Essentially we'll be displaying some sort of "this is how you log in" and other formal yada yada 
+//- for the user to navigate in. After that we'll route the user to a different /route and swap in another
+//- *-view.
+//- 
+//-	Usage:
+//-
+//-		app-route(path="/foobar" import="../../components/cthulhu-front-view/cthulhu-front-view.html")
+
+dom-module#cthulhu-front-view
+	template
+		style(include="cthulhu-style")
+
+		span This is where all the magic will happen. TODO: magic.
+
+	script(src="../../components/cthulhu-front-view/cthulhu-front-view.js")

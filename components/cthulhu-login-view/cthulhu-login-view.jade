@@ -1,0 +1,22 @@
+link(rel="import" href="../../components/polymer/polymer.html")
+link(rel="import" href="../../components/cthulhu-style/cthulhu-style.html")
+
+link(rel="import" href="../../components/cthulhu-login/cthulhu-login.html")
+
+//- Login page view for Cthulhu. *-views are the components the app-router will be 
+//- swapping between as the user navigates to different paths in the application. Magix.
+//- Essentially we'll be displaying some sort of "this is how you log in" and other formal yada yada 
+//- for the user to navigate in. After that we'll route the user to a different /route and swap in another
+//- *-view.
+//- 
+//-	Usage:
+//-
+//-		app-route(path="/foobar" import="../../components/cthulhu-login-view/cthulhu-login-view.html")
+
+dom-module#cthulhu-login-view
+	template
+		style(include="cthulhu-style")
+
+		cthulhu-login
+
+	script(src="../../components/cthulhu-login-view/cthulhu-login-view.js")

@@ -10,6 +10,7 @@ import cookieParser from "cookie-parser";
 import { createNewCharacter } from "./character/character";
 import authentication from "./authentication/authentication";
 import { printProductionStatus } from "./environment/environment";
+import { addViewIndexRoutesForSpa } from "./routes/view-routes";
 
 const favicon = require("serve-favicon");
 const app = express();
@@ -36,16 +37,14 @@ printProductionStatus();
 }
 
 {	// Setting Express routes
-	app.get("/", (request: express.Request, response: express.Response) => {
-		response.sendFile(path.join(__dirname, "../components/index.html"));
-	});
+	addViewIndexRoutesForSpa(app);
 
 	// Used for Google verification - do NOT remove this or cthulhu-charactres.herokuapp.com gets unverified by Google
 	app.get("/google46f5c1efa1dd1848.html", (request: express.Request, response: express.Response) => {
 		response.sendFile(path.join(__dirname, "../components/google46f5c1efa1dd1848.html"));
 	});
 
-	app.get("/character", (request: express.Request, response: express.Response) => {
+	app.get("/getcharacter", (request: express.Request, response: express.Response) => {
 		response.json(createNewCharacter());
 	});
 
