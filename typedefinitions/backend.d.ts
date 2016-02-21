@@ -7,4 +7,6 @@
 /// <reference path="./passport-google-oauth/passport-google-oauth.d.ts" />
 /// <reference path="./body-parser/body-parser.d.ts" />
 /// <reference path="./cookie-parser/cookie-parser.d.ts" />
+/// <reference path="./mongodb/mongodb.d.ts" />
+/// <reference path="./connect-mongo/connect-mongo.d.ts" />
 /// <reference path="./q/Q.d.ts" />

@@ -7,12 +7,16 @@ import express from "express";
 import passport from "passport";
 import session from "express-session";
 import passportGoogle from "passport-google-oauth";
+// import * as connectMongo from "connect-mongo";
 import {
 	getEnvironmentalVariable,
 	isInProduction
 } from "../environment/environment";
 
 const strategyGoogle = passportGoogle.OAuth2Strategy;
+// const mongoStore = connectMongo(express);
+// const mongoStoreOptions = {
+// };
 
 namespace Authentication {
 	/**
@@ -55,6 +59,7 @@ namespace Authentication {
 			secret: getEnvironmentalVariable("SESSION_SECRET_KEY", "LOCAL_SESSION_SECRET-123"),
 			resave: true,
 			saveUninitialized: true
+			// store: new mongoStore(sessionStoreOptions);
 		}));
 		app.use(passport.initialize());
 		app.use(passport.session());
