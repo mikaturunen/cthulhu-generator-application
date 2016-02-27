@@ -34,7 +34,7 @@ Even when it says development, these are required for development. Otto is heavi
 
 ### Docker instructions
 
-You can run the services the application depends on, like Mongo in a container locally if you are not feeling like installing all the stuff on your local system.
+You can run the services the application depends on, like Mongo in a container locally if you are not feeling like installing all the stuff on your local system. They are not currently ran inside docker in the deployment environment as Heroku currently handles all that in a bit different manner. From applications point of view, the only thing that changes is the address where the database is found.
 
 TODO: write instructions.
 
