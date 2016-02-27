@@ -8,7 +8,7 @@ The application is built with TypeScript and heavily uses ES6 features of JavaSc
 
 ### Stack
 
-* < insert database once decided >
+* Mongo
 * Node.js
 * Polymer
 
@@ -19,6 +19,7 @@ The application is built with TypeScript and heavily uses ES6 features of JavaSc
 * TypeScript compiled to JavaScript
 * TS compiles to ES6 compatible JavaScript
 * Babel compiles ES6 JS to ES5 compatible JS
+* Docker for running services locally (mongo for example)
 
 ### Infra and deployment
 
@@ -30,6 +31,12 @@ Even when it says development, these are required for development. Otto is heavi
 * Start programming like MAD and the changes are automatically synced to environment
 * To compile everything I suggest you make your life a lot easier inside the nanobox with `npm i -g gulp`
 * Run `gulp` to compile the project
+
+### Docker instructions
+
+You can run the services the application depends on, like Mongo in a container locally if you are not feeling like installing all the stuff on your local system.
+
+TODO: write instructions.
 
 ### Suggested editors / plugins
 
