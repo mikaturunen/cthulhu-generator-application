@@ -22,6 +22,13 @@ var typeScriptDestination = "./release/";
 // in all other cases but 'watch' as 'watch' is ongoing, iterating, always on process :)
 var globalEmit = false;
 
+/**
+ * Creates TypeScript compilation for given sources files and outputs them into a preferred release location.
+ * Used for frontend and backend TypeScript. They need different compilation locations.
+ * @param {String[]} typescriptSources Array of source files
+ * @param {String} outputDirectory Location to output the JS files to.
+ * @returns {Object} Gulp stream.  
+ */
 var createTypeScriptTaskForTargets = function(typescriptSources, outputDirectory) {
     return gulp
         .src(typescriptSources)
