@@ -17,17 +17,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var production = process.env["NODE_ENV"] === "production" ? "production" : "development";
 function getEnvironmentalVariable(variable, defaultValue, printToConsole) {
     defaultValue = defaultValue ? defaultValue : "";
-    printToConsole = printToConsole ? printToConsole : true;
+    printToConsole = printToConsole !== undefined ? printToConsole : true;
     if (!process.env[variable]) {
         _log2.default.error("Could not find environmental variable '" + variable + "', value '" + defaultValue + "'.");
         return defaultValue;
     }
     var message = "Found environmental variable: '" + variable + "'";
 
-    if (printToConsole) {
+    if (printToConsole === true) {
         message += ", value '" + process.env[variable] + "'.";
     } else {
-        message += ".";
+        message += ". Not showing value.";
     }
     _log2.default.trace(message);
     return process.env[variable];

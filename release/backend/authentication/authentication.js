@@ -16,12 +16,16 @@ var _passportGoogleOauth = require("passport-google-oauth");
 
 var _passportGoogleOauth2 = _interopRequireDefault(_passportGoogleOauth);
 
+var _connectMongo = require("connect-mongo");
+
+var _connectMongo2 = _interopRequireDefault(_connectMongo);
+
 var _environment = require("../environment/environment");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var strategyGoogle = _passportGoogleOauth2.default.OAuth2Strategy;
-
+var mongoStore = (0, _connectMongo2.default)(_expressSession2.default);
 var Authentication;
 (function (Authentication) {
     function connectToExpress(app) {
@@ -42,9 +46,12 @@ var Authentication;
             done(null, obj);
         });
         app.use((0, _expressSession2.default)({
-            secret: (0, _environment.getEnvironmentalVariable)("SESSION_SECRET_KEY", "LOCAL_SESSION_SECRET-123"),
             resave: true,
-            saveUninitialized: true
+            saveUninitialized: true,
+            secret: (0, _environment.getEnvironmentalVariable)("SESSION_SECRET_KEY", "LOCAL_SESSION_SECRET-123", false),
+            store: new mongoStore({
+                url: (0, _environment.getDatabaseConnectionString)()
+            })
         }));
         app.use(_passport2.default.initialize());
         app.use(_passport2.default.session());

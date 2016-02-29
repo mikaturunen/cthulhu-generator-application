@@ -13,7 +13,7 @@ const production = process.env["NODE_ENV"] === "production" ? "production" : "de
  */
 export function getEnvironmentalVariable(variable: string, defaultValue?: string, printToConsole?: boolean) {
 	defaultValue = defaultValue ? defaultValue : "";
-	printToConsole = printToConsole ? printToConsole : true;
+	printToConsole = printToConsole !== undefined ? printToConsole : true;
 
 	if (!process.env[variable]) {
 		log.error("Could not find environmental variable '" + variable + "', value '" + defaultValue + "'.");
@@ -23,10 +23,10 @@ export function getEnvironmentalVariable(variable: string, defaultValue?: string
 	let message = "Found environmental variable: '" + variable + "'";
 
 	// There are some sensitive cases that we definitely do not want to publish the information of the env variable to the console
-	if (printToConsole) {
+	if (printToConsole === true) {
 		message += ", value '" + process.env[variable] + "'.";
 	} else {
-		message += ".";
+		message += ". Not showing value.";
 	}
 
 	log.trace(message);
