@@ -21,6 +21,7 @@ var _environment = require("../environment/environment");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var strategyGoogle = _passportGoogleOauth2.default.OAuth2Strategy;
+
 var Authentication;
 (function (Authentication) {
     function connectToExpress(app) {
