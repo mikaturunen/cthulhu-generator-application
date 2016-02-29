@@ -60,8 +60,15 @@ namespace Authentication {
 			saveUninitialized: true,
 			secret: getEnvironmentalVariable("SESSION_SECRET_KEY", "LOCAL_SESSION_SECRET-123", false),
 			store: new mongoStore({
-				url: getDatabaseConnectionString()
-			})
+				url: getDatabaseConnectionString(),
+				ttl: 14 * 24 * 60 * 60 // = 14 days. Default
+			}),
+			cookie: {
+				// 2 weeks in milliseconds, 14 days -- the above ttl is not in milliseconds!
+				// These two essentially should match. TTL will clear the value from db and this will expire the local cooke.
+				// Obviously if local cookie works and session is expired it does not work but it's good practice to match them.
+				maxAge: 604800000 * 2
+			}
 		}));
 		app.use(passport.initialize());
 		app.use(passport.session());
@@ -74,6 +81,7 @@ namespace Authentication {
 	export function authenticate(app: express.Application) {
 		interface LogoutRequest extends express.Request {
 			logout: () => void;
+			isAuthenticated: () => boolean;
 		};
 
 		// Use passport.authenticate() as route middleware to authenticate the
@@ -96,8 +104,17 @@ namespace Authentication {
 		}));
 
 		app.get("/logout", (request: LogoutRequest, response: express.Response) => {
-			request.logout();
+			if (request.logout !== undefined) {
+				request.logout();
+			}
+
 			response.redirect("/");
+		});
+
+		app.get("/auth", (request: LogoutRequest, response: express.Response) => {
+			response.json({
+				isAuthenticated: request.isAuthenticated ? request.isAuthenticated() : false
+			});
 		});
 	}
 }

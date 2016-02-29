@@ -50,8 +50,11 @@ var Authentication;
             saveUninitialized: true,
             secret: (0, _environment.getEnvironmentalVariable)("SESSION_SECRET_KEY", "LOCAL_SESSION_SECRET-123", false),
             store: new mongoStore({
-                url: (0, _environment.getDatabaseConnectionString)()
-            })
+                url: (0, _environment.getDatabaseConnectionString)(),
+                ttl: 14 * 24 * 60 * 60 }),
+            cookie: {
+                maxAge: 604800000 * 2
+            }
         }));
         app.use(_passport2.default.initialize());
         app.use(_passport2.default.session());
@@ -70,8 +73,15 @@ var Authentication;
             failureRedirect: "/"
         }));
         app.get("/logout", function (request, response) {
-            request.logout();
+            if (request.logout !== undefined) {
+                request.logout();
+            }
             response.redirect("/");
+        });
+        app.get("/auth", function (request, response) {
+            response.json({
+                isAuthenticated: request.isAuthenticated ? request.isAuthenticated() : false
+            });
         });
     }
     Authentication.authenticate = authenticate;
