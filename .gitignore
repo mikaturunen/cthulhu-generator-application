@@ -1,11 +1,7 @@
 .otto
 .ottoid
 /node_modules
-/release/components/bootstrap
-/release/components/imd
-/release/components/jquery
-/release/components/polymer
-/release/components/webcomponentsjs
+/release/components/
 **/*.orig
 **/*_BACKUP_*
 **/*_BASE_*
