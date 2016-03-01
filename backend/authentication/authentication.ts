@@ -17,6 +17,9 @@ import {
 
 const strategyGoogle = passportGoogle.OAuth2Strategy;
 const mongoStore = connectMongo(session);
+const authCallbackRoute = "/auth/google/callback";
+const productionCallbackUrl = "https://cthulhu-characters.herokuapp.com" + authCallbackRoute;
+const developmentCallbackUrl = "http://localhost:3000" + authCallbackRoute;
 
 namespace Authentication {
 	/**
@@ -27,11 +30,9 @@ namespace Authentication {
 		passport.use(new strategyGoogle({
 				// NOTE the real ID's are hidden in build servers and in developers environment,
 				// 		never pushed to Git. Find them in our private conversations :)
-				clientID: getEnvironmentalVariable("GOOGLE_CLIENT_ID", "NO CLIENT ID IN PLACE, SETUP! OAUTH2 WILL NOT WORK!"),
-				clientSecret: getEnvironmentalVariable("GOOGLE_CLIENT_SECRET", "NO CLIENT SECRET IN PLACE, SETUP! OAUTH2 WILL NOT WORK!"),
-				callbackURL: isInProduction() ?
-					"https://cthulhu-characters.herokuapp.com/auth/google/callback" :
-					"http://localhost:3000/auth/google/callback"
+				clientID: getEnvironmentalVariable("GOOGLE_CLIENT_ID", "NO CLIENT ID IN PLACE, SETUP! OAUTH2 WILL NOT WORK!", false),
+				clientSecret: getEnvironmentalVariable("GOOGLE_CLIENT_SECRET", "NO CLIENT SECRET IN PLACE, SETUP! OAUTH2 WILL NOT WORK!", false),
+				callbackURL: isInProduction() ? productionCallbackUrl : developmentCallbackUrl
 			},
 			(
 				accessToken: string,
@@ -98,7 +99,7 @@ namespace Authentication {
 		// request. If authentication fails, the user will be redirected back to the
 		// login page. Otherwise, the primary route function function will be called,
 		// which, in this example, will redirect the user to the home page.
-		app.get("/auth/google/callback", passport.authenticate("google", {
+		app.get(authCallbackRoute, passport.authenticate("google", {
 			successRedirect: "/front",
 			failureRedirect: "/"
 		}));
@@ -112,9 +113,7 @@ namespace Authentication {
 		});
 
 		app.get("/auth", (request: LogoutRequest, response: express.Response) => {
-			response.json({
-				isAuthenticated: request.isAuthenticated ? request.isAuthenticated() : false
-			});
+			response.json(request.isAuthenticated ? request.isAuthenticated() : false);
 		});
 	}
 }

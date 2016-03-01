@@ -16,7 +16,7 @@ export function getEnvironmentalVariable(variable: string, defaultValue?: string
 	printToConsole = printToConsole !== undefined ? printToConsole : true;
 
 	if (!process.env[variable]) {
-		log.error("Could not find environmental variable '" + variable + "', value '" + defaultValue + "'.");
+		log.error("Could not find environmental variable '" + variable + "', using value '" + defaultValue + "'.");
 		return defaultValue;
 	}
 
@@ -26,7 +26,7 @@ export function getEnvironmentalVariable(variable: string, defaultValue?: string
 	if (printToConsole === true) {
 		message += ", value '" + process.env[variable] + "'.";
 	} else {
-		message += ". Not showing value.";
+		message += ".";
 	}
 
 	log.trace(message);

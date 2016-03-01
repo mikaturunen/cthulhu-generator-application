@@ -26,13 +26,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var strategyGoogle = _passportGoogleOauth2.default.OAuth2Strategy;
 var mongoStore = (0, _connectMongo2.default)(_expressSession2.default);
+var authCallbackRoute = "/auth/google/callback";
+var productionCallbackUrl = "https://cthulhu-characters.herokuapp.com" + authCallbackRoute;
+var developmentCallbackUrl = "http://localhost:3000" + authCallbackRoute;
 var Authentication;
 (function (Authentication) {
     function connectToExpress(app) {
         _passport2.default.use(new strategyGoogle({
-            clientID: (0, _environment.getEnvironmentalVariable)("GOOGLE_CLIENT_ID", "NO CLIENT ID IN PLACE, SETUP! OAUTH2 WILL NOT WORK!"),
-            clientSecret: (0, _environment.getEnvironmentalVariable)("GOOGLE_CLIENT_SECRET", "NO CLIENT SECRET IN PLACE, SETUP! OAUTH2 WILL NOT WORK!"),
-            callbackURL: (0, _environment.isInProduction)() ? "https://cthulhu-characters.herokuapp.com/auth/google/callback" : "http://localhost:3000/auth/google/callback"
+            clientID: (0, _environment.getEnvironmentalVariable)("GOOGLE_CLIENT_ID", "NO CLIENT ID IN PLACE, SETUP! OAUTH2 WILL NOT WORK!", false),
+            clientSecret: (0, _environment.getEnvironmentalVariable)("GOOGLE_CLIENT_SECRET", "NO CLIENT SECRET IN PLACE, SETUP! OAUTH2 WILL NOT WORK!", false),
+            callbackURL: (0, _environment.isInProduction)() ? productionCallbackUrl : developmentCallbackUrl
         }, function (accessToken, refreshToken, profile, done) {
             console.log("Profile #:", profile);
             done(null, profile);
@@ -68,7 +71,7 @@ var Authentication;
             scope: ["https://www.googleapis.com/auth/plus.login"]
         }));
 
-        app.get("/auth/google/callback", _passport2.default.authenticate("google", {
+        app.get(authCallbackRoute, _passport2.default.authenticate("google", {
             successRedirect: "/front",
             failureRedirect: "/"
         }));
@@ -79,9 +82,7 @@ var Authentication;
             response.redirect("/");
         });
         app.get("/auth", function (request, response) {
-            response.json({
-                isAuthenticated: request.isAuthenticated ? request.isAuthenticated() : false
-            });
+            response.json(request.isAuthenticated ? request.isAuthenticated() : false);
         });
     }
     Authentication.authenticate = authenticate;

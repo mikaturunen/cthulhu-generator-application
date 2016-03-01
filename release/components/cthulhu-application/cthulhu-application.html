@@ -2,16 +2,17 @@
 <link rel="import" href="../../components/polymer/polymer.html"/>
 <link rel="import" href="../../components/cthulhu-style/cthulhu-style.html"/>
 <link rel="import" href="../../components/app-router/app-router.html"/>
+<link rel="import" href="../../components/cthulhu-auth-service/cthulhu-auth-service.html"/>
 <link rel="import" href="../../components/cthulhu-login/cthulhu-login.html"/>
 <dom-module id="cthulhu-application">
   <link rel="import" type="css" href="../../components/cthulhu-application/cthulhu-application.css"/>
   <template>
     <style include="cthulhu-style"></style>
+    <cthulhu-auth-service></cthulhu-auth-service>
     <app-router>
       <app-route path="/" import="../../components/cthulhu-login-view/cthulhu-login-view.html"></app-route>
       <app-route path="/front" import="../../components/cthulhu-front-view/cthulhu-front-view.html"></app-route>
-      <!-- app-route(path="*" redirect="/")-->
-      
+      <app-route path="*" redirect="/"></app-route>
     </app-router>
   </template>
   <script src="../../components/cthulhu-application/cthulhu-application.js"></script>

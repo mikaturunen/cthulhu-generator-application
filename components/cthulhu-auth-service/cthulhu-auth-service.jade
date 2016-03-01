@@ -1,0 +1,14 @@
+link(rel="import" href="../../components/polymer/polymer.html")
+link(rel="import" href="../../components/iron-ajax/iron-ajax.html")
+
+dom-module#cthulhu-auth-service
+	template
+		iron-ajax(
+			auto
+			url="/auth" 
+			handle-as="json" 
+			on-response="onAuthenticationResponse"
+			on-error="onAuthenticationError"
+		)
+		
+	script(src="../../components/cthulhu-auth-service/cthulhu-auth-service.js")
