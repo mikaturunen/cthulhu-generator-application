@@ -27,30 +27,30 @@ var globalEmit = false;
  * Used for frontend and backend TypeScript. They need different compilation locations.
  * @param {String[]} typescriptSources Array of source files
  * @param {String} outputDirectory Location to output the JS files to.
- * @returns {Object} Gulp stream.  
+ * @returns {Object} Gulp stream.
  */
 var createTypeScriptTaskForTargets = function(typescriptSources, outputDirectory) {
+    var tsOptions = {
+        typescript: require("typescript"),
+        target: "es6",
+        sourceMap: true,
+        removeComments: false,
+        declaration: true,
+        noImplicitAny: true,
+        module: "es2015",
+        failOnTypeErrors: true,
+        suppressImplicitAnyIndexErrors: true
+    };
+
     return gulp
         .src(typescriptSources)
         // Pipe source to lint
         .pipe(tslint())
         .pipe(tslint.report("verbose", { emitError: globalEmit }))
         // Push through to compiler
-        .pipe(ts({
-            typescript: require("typescript"),
-            target: "es6",
-            sourceMap: true,
-            removeComments: false,
-            declaration: true,
-            noImplicitAny: true,
-            failOnTypeErrors: true,
-            suppressImplicitAnyIndexErrors: true
-        }))
+        .pipe(ts(tsOptions))
         // Through babel (es6->es5)
-        .pipe(babel({
-            comments: false,
-            presets: [ "es2015" ]
-        }))
+        .pipe(babel())
         .pipe(gulp.dest(outputDirectory));
 };
 
