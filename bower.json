@@ -2,7 +2,7 @@
   "name": "cthulhu-generator-application",
   "description": "Application for generating characters for Roleplaying game Cthulhu",
   "main": "node release/backend/cthulhu.js",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "authors": [
     "Mika Turunen <mika.turunen@ymail.com>"
   ],
