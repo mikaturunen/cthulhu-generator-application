@@ -1,7 +1,7 @@
 "use strict";
 
 interface RouterElement extends Element {
-	go: (route: string, options: any) => void;
+	go: (route: string, options?: any) => void;
 }
 
 define("cthulhuFrontView", [ "cthulhuAuthService" ], (auth: Promise<AuthService>) => {
@@ -12,7 +12,7 @@ define("cthulhuFrontView", [ "cthulhuAuthService" ], (auth: Promise<AuthService>
 			const routerElement = <RouterElement> document.querySelector("app-router");
 			// redirect user to front page.
 			// TODO might want to implement html5 push/pop states for correct url building after this
-			routerElement.go("/home", { replace: true });
+			routerElement.go("/login");
 			return;
 		}
 

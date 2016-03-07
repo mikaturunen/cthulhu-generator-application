@@ -72,7 +72,7 @@ var Authentication;
         }));
 
         app.get(authCallbackRoute, _passport2.default.authenticate("google", {
-            successRedirect: "/front",
+            successRedirect: "/",
             failureRedirect: "/"
         }));
         app.get("/logout", function (request, response) {

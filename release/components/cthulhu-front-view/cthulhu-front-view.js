@@ -5,7 +5,7 @@ define("cthulhuFrontView", ["cthulhuAuthService"], function (auth) {
         if (service.isAuthenticated === false) {
             var routerElement = document.querySelector("app-router");
 
-            routerElement.go("/home", { replace: true });
+            routerElement.go("/login");
             return;
         }
         Polymer({
