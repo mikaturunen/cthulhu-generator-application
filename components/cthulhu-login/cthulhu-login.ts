@@ -12,7 +12,6 @@ define("cthulhuLogin", [], () => {
 		 * Attemps to login the user into the Google specific login url
 		 */
 		handleRedirectLogin: function() {
-			// not implemented yet, don't get any ideas :) Just a placeholder lal
 			window.location.href = "/auth/google";
 		}
 	});
