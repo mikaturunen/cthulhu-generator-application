@@ -2,6 +2,7 @@
 
 import express from "express";
 import * as path from "path";
+import { isInProduction } from "../environment/environment";
 
 /**
  * Sole purpose of this file is to provide the routes for different "*-view" components in the front.
@@ -21,9 +22,21 @@ const pathToIndexHtml = path.join(__dirname, "../../components/index.html");
  * @param {express.Application} app Application object from express().
  */
 export function addViewIndexRoutesForSpa(app: express.Application) {
-	app.get("/", (request: express.Request, response: express.Response) =>
-		response.sendFile(pathToIndexHtml));
+	// Defining the routes we want to hook explicitly to index.html
+	[
+		"/",
+		"/front",
+		"/login"
+	]
+	.forEach(route => app.get(route, (request: express.Request, response: express.Response) =>
+		response.sendFile(pathToIndexHtml)));
 
-	app.get("/front", (request: express.Request, response: express.Response) =>
-		response.sendFile(pathToIndexHtml));
+	// When in production, we offer index.html from all the routes so that front does
+	// not explode when user navigates to /foo/bar/testing/asfadsf?€32423&421
+	// instead we offer index.html and allow the front page to resolve the explosion.
+	// -- in development we'll allow it to explode into pieces and we can better debug the issues.
+	if (isInProduction() === true) {
+		app.get("*", (request: express.Request, response: express.Response) =>
+			response.sendFile(pathToIndexHtml));
+	}
 };
