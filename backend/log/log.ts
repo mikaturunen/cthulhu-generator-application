@@ -1,6 +1,7 @@
 "use strict";
 
 // TODO use external logging module, currently just providing a unifieid front
+// TODO are we interested in metrics ? 
 
 /**
  * Logging namespace. Provides functionality for all of our logging needs. Plug this baby into
