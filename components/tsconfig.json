@@ -22,6 +22,7 @@
         "./cthulhu-button/cthulhu-button.ts",
         "./cthulhu-character/cthulhu-character.ts",
         "./cthulhu-front-view/cthulhu-front-view.ts",
+        "./cthulhu-header/cthulhu-header.ts",
         "./cthulhu-login-view/cthulhu-login-view.ts",
         "./cthulhu-login/cthulhu-login.ts",
         "./cthulhu-style/cthulhu-style.ts"
