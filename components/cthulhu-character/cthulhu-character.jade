@@ -1,0 +1,12 @@
+link(rel="import" href="../../components/polymer/polymer.html")
+link(rel="import" href="../../components/cthulhu-style/cthulhu-style.html")
+
+dom-module#cthulhu-character
+	link(rel="import" type="css" href="../../components/cthulhu-character/cthulhu-character.css")
+	template
+		style(include="cthulhu-style")
+
+		button(is-primary$="[[ isPrimary ]]")
+			content
+
+	script(src="../../components/cthulhu-character/cthulhu-character.js")
