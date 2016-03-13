@@ -6,6 +6,17 @@ Application for generating characters for Roleplaying game Call of Cthulhu.
 
 The application is built with TypeScript and heavily uses ES6 features of JavaScript with the additional typing. Building and compilation is done with Gulp and the application is run on top of Node.js.
 
+### Required environmental variables
+
+Export and fill in the following environmental variables to configure MongoDB connection string properly and the mongo db database in use. You will also have to provide your very own Google Developer API keys to access OAUTH2 properly so if you are deploying the application or running it locally. Otherwise you won't be able to log into the app.
+
+* `export DB_USER=`
+* `export DB_PASSWORD=`
+* `export DB_URL=`
+* `export DB_APPLICATION=`
+* `export GOOGLE_CLIENT_ID=`
+* `export GOOGLE_CLIENT_SECRET=`
+
 ### Stack
 
 * Mongo
