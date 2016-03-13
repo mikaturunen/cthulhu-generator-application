@@ -1,23 +1,11 @@
 link(rel="import" href="../../components/polymer/polymer.html")
 link(rel="import" href="../../components/cthulhu-style/cthulhu-style.html")
 
-//- Header component for Cthulhu.
-//-	Usage:
-//-
-//-		cthulhu-header
-//-			span What possible text or other content we might want to have in the button?
+//- TODO link a common style component if you have one or remove this line
 
 dom-module#cthulhu-header
 	link(rel="import" type="css" href="../../components/cthulhu-header/cthulhu-header.css")
 	template
 		style(include="cthulhu-style")
-
-		div.header
-			ul.primary-navigation
-				li.left
-					span Cthulhu
-				//- TODO have a simple icon instead of a text?
-				li(on-click="handleLogout").right
-					span Logout 
 
 	script(src="../../components/cthulhu-header/cthulhu-header.js")
