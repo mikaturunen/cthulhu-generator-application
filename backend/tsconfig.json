@@ -23,6 +23,7 @@
         "./cthulhu.ts",
         "./environment/environment.ts",
         "./log/log.ts",
+        "./profile/profile.ts",
         "./routes/view-routes.ts"
     ],
     "atom": {

@@ -8,6 +8,7 @@ import passport from "passport";
 import session from "express-session";
 import passportGoogle from "passport-google-oauth";
 import connectMongo from "connect-mongo";
+import profile from "../profile/profile";
 
 import {
 	getEnvironmentalVariable,
@@ -20,6 +21,14 @@ const mongoStore = connectMongo(session);
 const authCallbackRoute = "/auth/google/callback";
 const productionCallbackUrl = "https://cthulhu-characters.herokuapp.com" + authCallbackRoute;
 const developmentCallbackUrl = "http://localhost:3000" + authCallbackRoute;
+
+// There are several other types inside the InternalGoogleoProfile too but I'm not going to type them
+// as we have no need for them -- this type is only used inside this file.
+interface InternalGoogleoProfile {
+	_json: {
+		id: string;
+	};
+};
 
 namespace Authentication {
 	/**
@@ -38,10 +47,11 @@ namespace Authentication {
 				accessToken: string,
 				refreshToken: string,
 				profile: any,
-				done: (error: string, user: any) => void
+				done: (error: string, user: InternalGoogleoProfile) => void
 			) => {
 				// TODO get user from database, currently we just return the whole google profile
-				console.log("Profile #:", profile);
+				console.log("USER LOGGED IN, Profile #:", profile._json.id);
+				// TODO search database for profile._json.id, if not found, create an empty profile
 				done(null, profile);
 			}
 		));
@@ -115,6 +125,10 @@ namespace Authentication {
 		app.get("/auth", (request: LogoutRequest, response: express.Response) => {
 			response.json(request.isAuthenticated ? request.isAuthenticated() : false);
 		});
+	}
+
+	export function setup() {
+		return profile.setup();
 	}
 }
 

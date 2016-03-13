@@ -32,33 +32,35 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 require("babel-polyfill");
 
+var seneca = require("seneca")();
 var favicon = require("serve-favicon");
 var app = (0, _express2.default)();
 (0, _environment.printProductionStatus)();
+_authentication2.default.setup().then(function () {
+    {
+        app.set("port", process.env.PORT || 3000);
+    }
+    {
+        app.use((0, _cookieParser2.default)());
+        app.use(parser.json());
+        app.use(parser.urlencoded({ extended: true }));
+        app.use(favicon(path.join(__dirname, "../components/favicon.ico")));
+        app.use("/components", _express2.default.static(path.join(__dirname, "../components")));
+        _authentication2.default.connectToExpress(app);
+    }
+    {
+        (0, _viewRoutes.addViewIndexRoutesForSpa)(app);
 
-{
-    app.set("port", process.env.PORT || 3000);
-}
-{
-    app.use((0, _cookieParser2.default)());
-    app.use(parser.json());
-    app.use(parser.urlencoded({ extended: true }));
-    app.use(favicon(path.join(__dirname, "../components/favicon.ico")));
-    app.use("/components", _express2.default.static(path.join(__dirname, "../components")));
-    _authentication2.default.connectToExpress(app);
-}
-{
-    (0, _viewRoutes.addViewIndexRoutesForSpa)(app);
+        app.get("/google46f5c1efa1dd1848.html", function (request, response) {
+            response.sendFile(path.join(__dirname, "../components/google46f5c1efa1dd1848.html"));
+        });
+        app.get("/getcharacter", function (request, response) {
+            response.json((0, _character.createNewCharacter)());
+        });
+        _authentication2.default.authenticate(app);
+    }
 
-    app.get("/google46f5c1efa1dd1848.html", function (request, response) {
-        response.sendFile(path.join(__dirname, "../components/google46f5c1efa1dd1848.html"));
+    app.listen(app.get("port"), function () {
+        console.log("Cthulhu application listening on port:", app.get("port"));
     });
-    app.get("/getcharacter", function (request, response) {
-        response.json((0, _character.createNewCharacter)());
-    });
-    _authentication2.default.authenticate(app);
-}
-
-app.listen(app.get("port"), function () {
-    console.log("Cthulhu application listening on port:", app.get("port"));
-});
+}).catch(console.log);

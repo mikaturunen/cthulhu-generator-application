@@ -1107,6 +1107,7 @@ declare module "mongodb" {
     read(size: number): string | Buffer | void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#resume
     resume(): void;
+	nextObject(): any;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#next
     returnKey(returnKey: Object): Cursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#rewind

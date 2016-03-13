@@ -20,6 +20,10 @@ var _connectMongo = require("connect-mongo");
 
 var _connectMongo2 = _interopRequireDefault(_connectMongo);
 
+var _profile = require("../profile/profile");
+
+var _profile2 = _interopRequireDefault(_profile);
+
 var _environment = require("../environment/environment");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -29,6 +33,7 @@ var mongoStore = (0, _connectMongo2.default)(_expressSession2.default);
 var authCallbackRoute = "/auth/google/callback";
 var productionCallbackUrl = "https://cthulhu-characters.herokuapp.com" + authCallbackRoute;
 var developmentCallbackUrl = "http://localhost:3000" + authCallbackRoute;
+;
 var Authentication;
 (function (Authentication) {
     function connectToExpress(app) {
@@ -37,7 +42,8 @@ var Authentication;
             clientSecret: (0, _environment.getEnvironmentalVariable)("GOOGLE_CLIENT_SECRET", "NO CLIENT SECRET IN PLACE, SETUP! OAUTH2 WILL NOT WORK!", false),
             callbackURL: (0, _environment.isInProduction)() ? productionCallbackUrl : developmentCallbackUrl
         }, function (accessToken, refreshToken, profile, done) {
-            console.log("Profile #:", profile);
+            console.log("USER LOGGED IN, Profile #:", profile._json.id);
+
             done(null, profile);
         }));
         _passport2.default.serializeUser(function (user, done) {
@@ -86,5 +92,9 @@ var Authentication;
         });
     }
     Authentication.authenticate = authenticate;
+    function setup() {
+        return _profile2.default.setup();
+    }
+    Authentication.setup = setup;
 })(Authentication || (Authentication = {}));
 exports.default = Authentication;
