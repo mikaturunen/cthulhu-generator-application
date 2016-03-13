@@ -3,7 +3,7 @@
 
 interface Profile {
 	/**
-	 * Mongo generated unique id
+	 * Provider (Google) generated unique ID which we'll be using as the unique ID in our application. This is globally unique, made sure by big G. 
 	 */
 	_id: string;
 
