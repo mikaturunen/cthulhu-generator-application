@@ -28,6 +28,7 @@ var Profile;
 (function (Profile) {
     var database = undefined;
     var collection = undefined;
+
     function setup() {
         return Q.nfcall(mongoClient.connect, (0, _environment.getDatabaseConnectionString)()).then(function (db) {
             database = db;
@@ -47,6 +48,7 @@ var Profile;
         });
     }
     Profile.setup = setup;
+
     function upsert(document) {
         collection.updateOne({
             _id: document._id
@@ -58,6 +60,7 @@ var Profile;
         });
     }
     Profile.upsert = upsert;
+
     function get(_id) {
         return collection.find({ _id: _id }).toArray().then(function (profiles) {
             return profiles.length > 0 ? profiles[0] : undefined;
