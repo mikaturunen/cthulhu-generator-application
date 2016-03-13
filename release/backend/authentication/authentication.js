@@ -24,6 +24,10 @@ var _profile = require("../profile/profile");
 
 var _profile2 = _interopRequireDefault(_profile);
 
+var _log = require("../log/log");
+
+var _log2 = _interopRequireDefault(_log);
+
 var _environment = require("../environment/environment");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -41,17 +45,32 @@ var Authentication;
             clientID: (0, _environment.getEnvironmentalVariable)("GOOGLE_CLIENT_ID", "NO CLIENT ID IN PLACE, SETUP! OAUTH2 WILL NOT WORK!", false),
             clientSecret: (0, _environment.getEnvironmentalVariable)("GOOGLE_CLIENT_SECRET", "NO CLIENT SECRET IN PLACE, SETUP! OAUTH2 WILL NOT WORK!", false),
             callbackURL: (0, _environment.isInProduction)() ? productionCallbackUrl : developmentCallbackUrl
-        }, function (accessToken, refreshToken, profile, done) {
-            console.log("USER LOGGED IN, Profile #:", profile._json.id);
-
-            done(null, profile);
+        }, function (accessToken, refreshToken, googleProfile, done) {
+            var profileId = googleProfile._json.id;
+            console.log("USER LOGGED IN, Profile #:", googleProfile._json.id, profileId);
+            _profile2.default.get(profileId).then(function (savedProfile) {
+                if (!savedProfile) {
+                    _log2.default.info("Profile does not exist. Creating profile for user:" + googleProfile.displayName);
+                    return _profile2.default.upsert({
+                        _id: profileId,
+                        characters: []
+                    });
+                } else {
+                    _log2.default.info("Profile exists. Using existing one.");
+                    return savedProfile;
+                }
+            }).then(function (savedProfile) {
+                _log2.default.info("Profile OK: " + JSON.stringify(savedProfile, null, 2));
+                done(null, googleProfile);
+            }).catch(function (error) {
+                _log2.default.error("User will not be logged into the system as an error occured:" + error);
+                done(error);
+            });
         }));
         _passport2.default.serializeUser(function (user, done) {
-            console.log("Serialize:", user);
             done(null, user);
         });
         _passport2.default.deserializeUser(function (obj, done) {
-            console.log("Deserialize:", obj);
             done(null, obj);
         });
         app.use((0, _expressSession2.default)({

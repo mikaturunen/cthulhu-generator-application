@@ -9,6 +9,7 @@ import session from "express-session";
 import passportGoogle from "passport-google-oauth";
 import connectMongo from "connect-mongo";
 import profile from "../profile/profile";
+import log from "../log/log";
 
 import {
 	getEnvironmentalVariable,
@@ -25,6 +26,7 @@ const developmentCallbackUrl = "http://localhost:3000" + authCallbackRoute;
 // There are several other types inside the InternalGoogleoProfile too but I'm not going to type them
 // as we have no need for them -- this type is only used inside this file.
 interface InternalGoogleoProfile {
+	displayName: string;
 	_json: {
 		id: string;
 	};
@@ -46,23 +48,44 @@ namespace Authentication {
 			(
 				accessToken: string,
 				refreshToken: string,
-				profile: any,
-				done: (error: string, user: InternalGoogleoProfile) => void
+				googleProfile: InternalGoogleoProfile,
+				done: (error: string, user?: InternalGoogleoProfile) => void
 			) => {
-				// TODO get user from database, currently we just return the whole google profile
-				console.log("USER LOGGED IN, Profile #:", profile._json.id);
-				// TODO search database for profile._json.id, if not found, create an empty profile
-				done(null, profile);
+				// Find user profile matching the google provider id and if it's not present, automatically create
+				// empty profile for user.
+
+				let profileId = googleProfile._json.id;
+				console.log("USER LOGGED IN, Profile #:", googleProfile._json.id, profileId);
+				profile.get(profileId).then((savedProfile: Profile) => {
+					if (!savedProfile) {
+						log.info("Profile does not exist. Creating profile for user:" + googleProfile.displayName);
+						return profile.upsert({
+							_id: profileId,
+							characters: []
+						});
+					} else {
+						log.info("Profile exists. Using existing one.");
+						return savedProfile;
+					}
+				})
+				.then((savedProfile: Profile) => {
+					log.info("Profile OK: " + JSON.stringify(savedProfile, null, 2));
+					done(null, googleProfile);
+				})
+				.catch((error: string) => {
+					log.error("User will not be logged into the system as an error occured:" + error);
+					done(error);
+				});
 			}
 		));
 
 		passport.serializeUser((user: any, done: (error: Error, user: any) => void) => {
-			console.log("Serialize:", user);
+			// console.log("Serialize:", user);
 			done(null, user);
 		});
 
 		passport.deserializeUser((obj: any, done: (error: Error, obj: any) => void) => {
-			console.log("Deserialize:", obj);
+			// console.log("Deserialize:", obj);
 			done(null, obj);
 		});
 

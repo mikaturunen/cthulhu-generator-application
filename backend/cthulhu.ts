@@ -12,11 +12,6 @@ import authentication from "./authentication/authentication";
 import { printProductionStatus } from "./environment/environment";
 import { addViewIndexRoutesForSpa } from "./routes/view-routes";
 
-// We do not have seneca types yet, will write them as they are not available, give me a bit of time.
-// In the mean time: http://senecajs.org/, and no, we are not building microservices, we are just using seneca
-// as means of dependency injection and internal communication. Why not services? We only have one dyno(process) in heroku :<
-const seneca: any = require("seneca")();
-
 const favicon = require("serve-favicon");
 const app = express();
 

@@ -8,12 +8,8 @@ interface Profile {
 	_id: string;
 
 	/**
-	 * Unique identifier created by the service provider
-	 */
-	providerId: string;
-
-	/**
-	 * List of characters the user has.
+	 * List of characters the user has. He might not have any characters. This is normal and then he will get an
+	 * empty list of Characters.
 	 */
 	characters: Character[];
 

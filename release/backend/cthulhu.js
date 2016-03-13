@@ -32,7 +32,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 require("babel-polyfill");
 
-var seneca = require("seneca")();
 var favicon = require("serve-favicon");
 var app = (0, _express2.default)();
 (0, _environment.printProductionStatus)();

@@ -2,6 +2,7 @@
 import { getDatabaseConnectionString } from "../environment/environment";
 import * as mongodb from "mongodb";
 import * as Q from "q";
+import log from "../log/log";
 
 const mongoClient = mongodb.MongoClient;
 const databaseCollectionName = "profile";
@@ -32,26 +33,27 @@ namespace Profile {
 			})
 			.then(databaseCollection => {
 				collection = databaseCollection;
-				return collection;
+				return true;
 			});
 	}
 
 	export function upsert(document: Profile) {
-		collection.updateOne(
-			{
+		collection.updateOne({
 				_id: document._id
 			},
 			document,
 			{
 				upsert: true
-			}
-		);
-
-		return get(document._id);
+			})
+			.then((result: mongodb.UpdateWriteOpResult) => {
+				log.info(JSON.stringify(result, null, 2));
+				return get(document._id);
+			});
 	}
 
 	export function get(_id: string) {
-		return Q.nfcall(collection.find({ _id: _id }).batchSize(1).nextObject);
+		return collection.find({ _id: _id }).toArray()
+			.then((profiles: Profile[]) => profiles.length > 0 ? profiles[0] : undefined);
 	}
 }
 
