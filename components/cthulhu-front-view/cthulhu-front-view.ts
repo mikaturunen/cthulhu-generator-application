@@ -18,7 +18,15 @@ define("cthulhuFrontView", [ "cthulhuAuthService" ], (auth: Promise<AuthService>
 
 		Polymer({
 			is: "cthulhu-front-view",
+
 			properties: {
+				profile: {
+					type: Object
+				}
+			},
+
+			onProfileError: function(response: string) {
+				console.log("Error getting profile:", response);
 			}
 		});
 	});

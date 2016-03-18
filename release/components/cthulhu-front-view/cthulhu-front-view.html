@@ -6,8 +6,11 @@
 <dom-module id="cthulhu-front-view">
   <template>
     <style include="cthulhu-style"></style>
+    <iron-ajax id="ProfileGet" auto="auto" url="/profile" handle-as="json" on-error="onProfileError" last-response="{{ profile }}"></iron-ajax>
     <cthulhu-header></cthulhu-header>
-    <div><span>This is where all the magic will happen. TODO: magic.	</span></div>
+    <div><span>ID: [[ profile._id ]]</span>
+      <template is="dom-repeat" items="[[ profile.characters ]]" as="character"><span>[[ character.name ]]</span></template>
+    </div>
   </template>
   <script src="../../components/cthulhu-front-view/cthulhu-front-view.js"></script>
 </dom-module>

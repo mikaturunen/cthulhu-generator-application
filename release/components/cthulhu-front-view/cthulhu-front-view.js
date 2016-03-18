@@ -10,7 +10,14 @@ define("cthulhuFrontView", ["cthulhuAuthService"], function (auth) {
         }
         Polymer({
             is: "cthulhu-front-view",
-            properties: {}
+            properties: {
+                profile: {
+                    type: Object
+                }
+            },
+            onProfileError: function onProfileError(response) {
+                console.log("Error getting profile:", response);
+            }
         });
     });
 });

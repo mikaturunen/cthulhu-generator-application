@@ -1,0 +1,23 @@
+:host *,
+:host *:before,
+:host *:after {
+  box-sizing: inherit;
+}
+:host .navigation-wrapper {
+  background: #eee;
+  margin: 0px;
+  width: 100%;
+  overflow: auto;
+  padding: 20px;
+}
+:host .inline {
+  display: inline-block;
+}
+:host .left {
+  padding-left: 5px;
+  float: left;
+}
+:host .right {
+  float: right;
+  padding-right: 40px;
+}

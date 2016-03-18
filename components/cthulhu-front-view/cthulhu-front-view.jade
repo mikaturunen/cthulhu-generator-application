@@ -17,16 +17,21 @@ dom-module#cthulhu-front-view
 	template
 		style(include="cthulhu-style")
 		
-		iron-ajax(
+		iron-ajax#ProfileGet(
+			auto
 			url="/profile" 
 			handle-as="json" 
-			on-response="onProfileResponse"
 			on-error="onProfileError"
+			last-response="{{ profile }}"
 		)
 		
 		cthulhu-header
+		
 		div
-			span This is where all the magic will happen. TODO: magic.	
+			span ID: [[ profile._id ]]
+			//- TODO create cthulhu-craracter-list component to display characters properly 
+			template(is="dom-repeat" items="[[ profile.characters ]]" as="character")
+				span [[ character.name ]]
 
 
 	script(src="../../components/cthulhu-front-view/cthulhu-front-view.js")
