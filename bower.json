@@ -27,6 +27,7 @@
     "imd": "PolymerLabs/IMD#^1.0.0",
     "app-router": "^2.6.1",
     "iron-ajax": "PolymerElements/iron-ajax#^1.1.1",
-    "pushstate-anchor": "^0.3.2"
+    "pushstate-anchor": "^0.3.2",
+    "iron-list": "PolymerElements/iron-list#^1.2.8"
   }
 }
