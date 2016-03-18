@@ -411,6 +411,9 @@ declare module "express" {
             baseUrl: string;
 
             app: Application;
+
+			logout: () => void;
+			isAuthenticated: () => boolean;
         }
 
         interface MediaType {

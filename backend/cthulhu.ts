@@ -11,14 +11,21 @@ import { createNewCharacter } from "./character/character";
 import authentication from "./authentication/authentication";
 import { printProductionStatus } from "./environment/environment";
 import { addViewIndexRoutesForSpa } from "./routes/view-routes";
+import profile from "./profile/profile";
 
 const favicon = require("serve-favicon");
 const app = express();
 
 printProductionStatus();
 
-authentication.setup()
+// Make sure all our modules are initialized; we essentially could use a DI container here and make sure
+// everything is in working order through the DI container but we'll do it this way for now. We'll switch
+// to DI once it gets a bit more complicated. This will do for now just fine.
+
+profile.setup()
 	.then(() => {
+		// All modules are now in working order, let the driving begin!
+
 		// Using block-scoping for no real reason. Makes it easier to see what happens and where,
 		// will probably move the separate blocks into their own files once they grow a bit more.
 

@@ -3,6 +3,7 @@
 import express from "express";
 import * as path from "path";
 import { isInProduction } from "../environment/environment";
+import profile from "../profile/profile";
 
 /**
  * Sole purpose of this file is to provide the routes for different "*-view" components in the front.
@@ -30,6 +31,19 @@ export function addViewIndexRoutesForSpa(app: express.Application) {
 	]
 	.forEach(route => app.get(route, (request: express.Request, response: express.Response) =>
 		response.sendFile(pathToIndexHtml)));
+
+	app.get("/profile", (request: express.Request, response: express.Response) => {
+		console.log("DOOKERY", request.user._json);
+		if (request.isAuthenticated ? request.isAuthenticated() : false) {
+			// TODO proper error sending to fron in .catch
+			profile.get(request.user._json.id)
+				.then(profile => response.json(profile))
+				.catch(() => response.json({}));
+		} else {
+			response.status(401);
+		}
+	});
+
 
 	// When in production, we offer index.html from all the routes so that front does
 	// not explode when user navigates to /foo/bar/testing/asfadsf?€32423&421

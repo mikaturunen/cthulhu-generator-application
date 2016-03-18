@@ -113,11 +113,6 @@ namespace Authentication {
 	 * @param {express.Application} app Express application created with express().
 	 */
 	export function authenticate(app: express.Application) {
-		interface LogoutRequest extends express.Request {
-			logout: () => void;
-			isAuthenticated: () => boolean;
-		};
-
 		// Use passport.authenticate() as route middleware to authenticate the
 		// request.  The first step in Google authentication will involve
 		// redirecting the user to google.com.  After authorization, Google
@@ -137,7 +132,7 @@ namespace Authentication {
 			failureRedirect: "/"
 		}));
 
-		app.get("/logout", (request: LogoutRequest, response: express.Response) => {
+		app.get("/logout", (request: express.Request, response: express.Response) => {
 			if (request.logout !== undefined) {
 				request.logout();
 			}
@@ -145,13 +140,9 @@ namespace Authentication {
 			response.redirect("/");
 		});
 
-		app.get("/auth", (request: LogoutRequest, response: express.Response) => {
+		app.get("/auth", (request: express.Request, response: express.Response) => {
 			response.json(request.isAuthenticated ? request.isAuthenticated() : false);
 		});
-	}
-
-	export function setup() {
-		return profile.setup();
 	}
 }
 

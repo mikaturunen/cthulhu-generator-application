@@ -25,7 +25,6 @@
         "./cthulhu-header/cthulhu-header.ts",
         "./cthulhu-login-view/cthulhu-login-view.ts",
         "./cthulhu-login/cthulhu-login.ts",
-        "./cthulhu-profile-service/cthulhu-profile-service.ts",
         "./cthulhu-style/cthulhu-style.ts"
     ],
     "atom": {

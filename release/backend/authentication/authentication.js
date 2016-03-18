@@ -90,8 +90,6 @@ var Authentication;
     Authentication.connectToExpress = connectToExpress;
 
     function authenticate(app) {
-        ;
-
         app.get("/auth/google", _passport2.default.authenticate("google", {
             scope: ["https://www.googleapis.com/auth/plus.login"]
         }));
@@ -111,9 +109,5 @@ var Authentication;
         });
     }
     Authentication.authenticate = authenticate;
-    function setup() {
-        return _profile2.default.setup();
-    }
-    Authentication.setup = setup;
 })(Authentication || (Authentication = {}));
 exports.default = Authentication;

@@ -16,6 +16,10 @@ namespace Profile {
 	 * If the collection does not exist, the setup function will create it.
 	 */
 	export function setup() {
+		if (database) {
+			return Q.resolve(true);
+		}
+
 		// 1. Open connection to database
 		// 2. List all collections in database
 		// 3. Check if our profile collection exists

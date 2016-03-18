@@ -11,6 +11,12 @@ var path = _interopRequireWildcard(_path);
 
 var _environment = require("../environment/environment");
 
+var _profile = require("../profile/profile");
+
+var _profile2 = _interopRequireDefault(_profile);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var pathToIndexHtml = path.join(__dirname, "../../components/index.html");
@@ -19,6 +25,18 @@ function addViewIndexRoutesForSpa(app) {
         return app.get(route, function (request, response) {
             return response.sendFile(pathToIndexHtml);
         });
+    });
+    app.get("/profile", function (request, response) {
+        console.log("DOOKERY", request.user._json);
+        if (request.isAuthenticated ? request.isAuthenticated() : false) {
+            _profile2.default.get(request.user._json.id).then(function (profile) {
+                return response.json(profile);
+            }).catch(function () {
+                return response.json({});
+            });
+        } else {
+            response.status(401);
+        }
     });
 
     if ((0, _environment.isInProduction)() === true) {

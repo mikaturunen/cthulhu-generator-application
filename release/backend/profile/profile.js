@@ -30,6 +30,10 @@ var Profile;
     var collection = undefined;
 
     function setup() {
+        if (database) {
+            return Q.resolve(true);
+        }
+
         return Q.nfcall(mongoClient.connect, (0, _environment.getDatabaseConnectionString)()).then(function (db) {
             database = db;
             return database;
