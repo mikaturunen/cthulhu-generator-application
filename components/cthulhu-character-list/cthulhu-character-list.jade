@@ -1,17 +1,10 @@
-link(rel="import" href="../../components/polymer/polymer.html")
-
-//- TODO link a common style component if you have one or remove this line
+link(rel="import" href="../polymer/polymer.html")
+link(rel="import" href="../cthulhu-style/cthulhu-style.html")
 
 dom-module#cthulhu-character-list
 	link(rel="import" type="css" href="../../components/cthulhu-character-list/cthulhu-character-list.css")
 	template
-		//- If you had a common style file, uncomment the below line and add the path to the style component --
-		//- Remove these comments otherwise
-		//- style(include="common-style")
-
-		//- TODO add component specifics here
-		//- exmaple:
-		//- div
-		//-		span Hello component cthulhuCharacterList
+		style(include="cthulhu-style")
+		iron-list
 
 	script(src="../../components/cthulhu-character-list/cthulhu-character-list.js")
