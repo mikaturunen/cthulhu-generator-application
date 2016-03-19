@@ -62,10 +62,7 @@ namespace Profile {
 			{
 				upsert: true
 			})
-			.then((result: mongodb.UpdateWriteOpResult) => {
-				log.info(JSON.stringify(result, null, 2));
-				return get(document._id);
-			});
+			.then((result: mongodb.UpdateWriteOpResult) => get(document._id));
 	}
 
 	/**
@@ -75,10 +72,7 @@ namespace Profile {
 	 */
 	export function get(_id: string) {
 		return collection.find({ _id: _id }).toArray()
-			.then((profiles: Profile[]) => {
-				console.log("found profiles:", profiles);
-				return profiles.length > 0 ? profiles[0] : undefined;
-			});
+			.then((profiles: Profile[]) => profiles.length > 0 ? profiles[0] : undefined);
 	}
 }
 

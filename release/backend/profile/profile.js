@@ -14,12 +14,6 @@ var _q = require("q");
 
 var Q = _interopRequireWildcard(_q);
 
-var _log = require("../log/log");
-
-var _log2 = _interopRequireDefault(_log);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var mongoClient = mongodb.MongoClient;
@@ -59,7 +53,6 @@ var Profile;
         }, document, {
             upsert: true
         }).then(function (result) {
-            _log2.default.info(JSON.stringify(result, null, 2));
             return get(document._id);
         });
     }
@@ -67,7 +60,6 @@ var Profile;
 
     function get(_id) {
         return collection.find({ _id: _id }).toArray().then(function (profiles) {
-            console.log("found profiles:", profiles);
             return profiles.length > 0 ? profiles[0] : undefined;
         });
     }
