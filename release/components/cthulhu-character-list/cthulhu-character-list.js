@@ -3,6 +3,17 @@
 define("cthulhuCharacterList", [], function () {
     Polymer({
         is: "cthulhu-character-list",
-        properties: {}
+        properties: {
+            characters: {
+                type: Array,
+                value: function value() {
+                    return [];
+                },
+                observer: "_onCharactersChanged"
+            }
+        },
+        _onCharactersChanged: function _onCharactersChanged(newValues, oldValues) {
+            return console.log(newValues);
+        }
     });
 });
