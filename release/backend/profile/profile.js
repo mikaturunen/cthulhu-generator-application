@@ -54,7 +54,7 @@ var Profile;
     Profile.setup = setup;
 
     function upsert(document) {
-        collection.updateOne({
+        return collection.updateOne({
             _id: document._id
         }, document, {
             upsert: true
@@ -67,6 +67,7 @@ var Profile;
 
     function get(_id) {
         return collection.find({ _id: _id }).toArray().then(function (profiles) {
+            console.log("found profiles:", profiles);
             return profiles.length > 0 ? profiles[0] : undefined;
         });
     }

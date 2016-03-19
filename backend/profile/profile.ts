@@ -55,7 +55,7 @@ namespace Profile {
 		// 1. Upsert into the given document
 		// 2. return the inserted document
 
-		collection.updateOne({
+		return collection.updateOne({
 				_id: document._id
 			},
 			document,
@@ -75,7 +75,10 @@ namespace Profile {
 	 */
 	export function get(_id: string) {
 		return collection.find({ _id: _id }).toArray()
-			.then((profiles: Profile[]) => profiles.length > 0 ? profiles[0] : undefined);
+			.then((profiles: Profile[]) => {
+				console.log("found profiles:", profiles);
+				return profiles.length > 0 ? profiles[0] : undefined;
+			});
 	}
 }
 
