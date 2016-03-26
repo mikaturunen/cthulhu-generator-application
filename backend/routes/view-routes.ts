@@ -44,6 +44,7 @@ export function addViewIndexRoutesForSpa(app: express.Application) {
 		}
 	});
 
+	// User can create characters
 	app.get("/character", (request: express.Request, response: express.Response) => {
 		if (request.isAuthenticated ? request.isAuthenticated() : false) {
 			let newCharacter = createNewCharacter();
