@@ -10,3 +10,4 @@
 /// <reference path="./mongodb/mongodb.d.ts" />
 /// <reference path="./connect-mongo/connect-mongo.d.ts" />
 /// <reference path="./q/Q.d.ts" />
+/// <reference path="../node_modules/inversify/type_definitions/inversify/inversify.d.ts" />
