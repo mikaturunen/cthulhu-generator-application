@@ -33,6 +33,7 @@ export function addViewIndexRoutesForSpa(app: express.Application) {
 	.forEach(route => app.get(route, (request: express.Request, response: express.Response) =>
 		response.sendFile(pathToIndexHtml)));
 
+	// Fetch logged in user profile, otherwise report 401 to user
 	app.get("/profile", (request: express.Request, response: express.Response) => {
 		if (request.isAuthenticated ? request.isAuthenticated() : false) {
 			// TODO proper error sending to fron in .catch
@@ -44,7 +45,8 @@ export function addViewIndexRoutesForSpa(app: express.Application) {
 		}
 	});
 
-	// User can create characters
+	// Route for creating new characters. Allowed only for logged in users as the character
+	// gets added to the users own Profile
 	app.get("/character", (request: express.Request, response: express.Response) => {
 		if (request.isAuthenticated ? request.isAuthenticated() : false) {
 			let newCharacter = createNewCharacter();

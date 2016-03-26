@@ -22,6 +22,8 @@
         "./character/rules.ts",
         "./cthulhu.ts",
         "./environment/environment.ts",
+        "./inversify.config.ts",
+        "./ioc-interfaces/authentication.d.ts",
         "./log/log.ts",
         "./profile/profile.ts",
         "./routes/view-routes.ts"
