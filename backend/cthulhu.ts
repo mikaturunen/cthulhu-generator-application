@@ -25,7 +25,7 @@ printProductionStatus();
 const container = new Injector();
 
 container.store<ProfileModule>("profile", new ProfileModule(container), "setup");
-container.store<AuthenticationModule>("profile", new AuthenticationModule(container), "setup");
+container.store<AuthenticationModule>("authenticate", new AuthenticationModule(container));
 container.setup();
 
 container.isReady()

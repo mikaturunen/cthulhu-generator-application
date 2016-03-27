@@ -16,6 +16,7 @@ class Injector implements InversionOfControlContainer {
 	constructor() {
 		// Initialize empty container
 		this.container = { };
+		this.setupPromises = [ ];
 	}
 
 	/**
@@ -37,8 +38,8 @@ class Injector implements InversionOfControlContainer {
 			setupFunction: setupFunction
 		};
 
-		if (setupFunction !== undefined && !content.hasOwnProperty(setupFunction)) {
-			throw "No " + setupFunction + " function in " + name + " present. Check your code.";
+		if (setupFunction !== undefined && !this.container[name].content[setupFunction]) {
+			throw "No '" + setupFunction + "()' function in '" + name + "' present. Check your code.";
 		}
 	}
 
@@ -63,7 +64,7 @@ class Injector implements InversionOfControlContainer {
 	public setup() {
 		Object
 			.keys(this.container)
-			.forEach(k => this.resolveContentSetup(k));
+			.forEach(k => this.resolveContentSetup(k, this.container[k]));
 	}
 
 	/**
@@ -71,12 +72,7 @@ class Injector implements InversionOfControlContainer {
 	 * @param {string} key What key to look for
 	 * @param {ContentInterface} has
 	 */
-	private resolveContentSetup(key: string, has?: ContentInterface) {
-		if (!has) {
-			// Call again to populate it properly
-			this.resolveContentSetup(key, this.container[key]);
-		}
-
+	private resolveContentSetup(key: string, has: ContentInterface) {
 		// No setup in place, we are completely OK with this, not all 'content' is async and/or requires setup
 		if (!has.setupFunction) {
 			return;
