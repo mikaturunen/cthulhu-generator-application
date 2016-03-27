@@ -45,6 +45,7 @@
     "typescript": "^1.7.5"
   },
   "dependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.7.4",
     "babel-polyfill": "^6.5.0",
     "body-parser": "^1.15.0",
     "bower": "^1.7.7",
