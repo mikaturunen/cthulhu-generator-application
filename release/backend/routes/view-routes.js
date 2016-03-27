@@ -28,6 +28,7 @@ function addViewIndexRoutesForSpa(app) {
             return response.sendFile(pathToIndexHtml);
         });
     });
+
     app.get("/profile", function (request, response) {
         if (request.isAuthenticated ? request.isAuthenticated() : false) {
             _profile2.default.get(request.user._json.id).then(function (profile) {
@@ -39,6 +40,7 @@ function addViewIndexRoutesForSpa(app) {
             response.status(401);
         }
     });
+
     app.get("/character", function (request, response) {
         if (request.isAuthenticated ? request.isAuthenticated() : false) {
             (function () {

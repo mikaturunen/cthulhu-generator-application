@@ -2,7 +2,6 @@
 import { getDatabaseConnectionString } from "../environment/environment";
 import * as mongodb from "mongodb";
 import * as Q from "q";
-import log from "../log/log";
 
 const mongoClient = mongodb.MongoClient;
 const databaseCollectionName = "profile";

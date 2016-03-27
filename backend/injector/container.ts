@@ -1,15 +1,17 @@
 
 import * as Q from "q";
 
-class InjectorContainer implements InversionOfControlContainer {
-	private container: { [name: string]: {
-		// Of type any promise, we do not care how it implements it.
-		setupFunction?: string,
-		// Can we template the content with T somehow?
-		content: any
-	} };
+interface ContentInterface {
+	// Of type any promise, we do not care how it implements it.
+	setupFunction?: string;
+	// Can we template the content with T somehow?
+	content: any;
+}
 
-	private setupPromise: Q.Promise<any>;
+class InjectorContainer implements InversionOfControlContainer {
+	private container: { [name: string]: ContentInterface };
+
+	private setupPromises: Q.Promise<any>[];
 
 	constructor() {
 		// Initialize empty container
@@ -21,7 +23,7 @@ class InjectorContainer implements InversionOfControlContainer {
 	 * @returns {Q.Deferred<boolean>} Will reject on content initialization error with message, otherwise resolves to true.
 	 */
 	public isReady() {
-		return this.setupPromise;
+		return Q.all(this.setupPromises).then(() => true).catch(() => false);
 	}
 
 	/**
@@ -43,7 +45,7 @@ class InjectorContainer implements InversionOfControlContainer {
 	/**
 	 * Gets a given content with name. Throws if the content is not present.
 	 * @param {string} name Name of the content to load.
-	 * @param {T} Returns content of generics type. 
+	 * @param {T} Returns content of generics type.
 	 */
 	public get<T>(name: string) {
 		let content = <T> this.container[name].content;
@@ -54,22 +56,30 @@ class InjectorContainer implements InversionOfControlContainer {
 
 		return content;
 	}
-
 	/**
 	 * Setups all the given content and makes sure it's properly loaded. Essentially triggers the chain to get isReady
 	 * into working condition.
 	 */
 	public setup() {
-		// If the container has a setup function for given content, we call it, otherwise we just simply
-		// Resolve a promise for missing setup function so it makes our living easier with the last promise
+		Object
+			.keys(this.container)
+			.forEach(k => this.resolveContentSetup(k));
+	}
 
-		this.setupPromise = Q.all(
-			Object.keys(this.container)
-			.map(
-				k => this.container[k].setupFunction !== undefined ?
-				this.container[k].content[this.container[k].setupFunction] :
-				Q.resolve(true)
-			)
+	private resolveContentSetup(key: string, has?: ContentInterface) {
+		if (!has) {
+			// Call again to populate it properly
+			this.resolveContentSetup(key, this.container[key]);
+		}
+
+		// No setup in place, we are completely OK with this, not all 'content' is async and/or requires setup
+		if (!has.setupFunction) {
+			return;
+		}
+
+		this.setupPromises.push(
+			<Q.Promise<any>> has.content[has.setupFunction]()
 		);
 	}
+
 };
