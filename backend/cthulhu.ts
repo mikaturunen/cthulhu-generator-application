@@ -5,14 +5,17 @@ require("babel-polyfill");
 
 import * as path from "path";
 import * as parser from "body-parser";
-import Injector from "./injector/injector";
+
 import express from "express";
 import cookieParser from "cookie-parser";
 import { createNewCharacter } from "./character/character";
 import authentication from "./authentication/authentication";
 import { printProductionStatus } from "./environment/environment";
 import { addViewIndexRoutesForSpa } from "./routes/view-routes";
-import profile from "./profile/profile";
+
+// Group the injection container and the modules that are going to be injected into it together
+import Injector from "./injector/injector";
+import ProfileModule from "./profile/profile";
 
 const favicon = require("serve-favicon");
 const app = express();
@@ -21,7 +24,7 @@ printProductionStatus();
 
 const container = new Injector();
 
-container.store<typeof profile>("profile", profile, "setup");
+container.store<ProfileModule>("profile", new ProfileModule(container), "setup");
 container.setup();
 
 container.isReady()
