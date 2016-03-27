@@ -8,8 +8,11 @@ import passport from "passport";
 import session from "express-session";
 import passportGoogle from "passport-google-oauth";
 import connectMongo from "connect-mongo";
-import profile from "../profile/profile";
+
 import log from "../log/log";
+
+// Typing purposes only for the IoC container - better would be to extract the types from the Class into a separate file
+import ProfileModule from "../profile/profile";
 
 import {
 	getEnvironmentalVariable,
@@ -32,12 +35,19 @@ interface InternalGoogleoProfile {
 	};
 };
 
-namespace Authentication {
+class AuthenticationModule {
+	constructor(private container: InversionOfControlContainer) {
+		//
+	}
+
 	/**
 	 * Connects the Passport middleware and and the strategies into Express.
 	 * @param {Express.Application} app Express Application
 	 */
-	export function connectToExpress(app: express.Application) {
+	public connectToExpress(app: express.Application) {
+		// Using the inversion of control container to get the module.
+		let profile = this.container.get<ProfileModule>("profile");
+
 		passport.use(new strategyGoogle({
 				// NOTE the real ID's are hidden in build servers and in developers environment,
 				// 		never pushed to Git. Find them in our private conversations :)
@@ -112,7 +122,7 @@ namespace Authentication {
 	 * Authenticates the request against google's authentication strategy.
 	 * @param {express.Application} app Express application created with express().
 	 */
-	export function authenticate(app: express.Application) {
+	public authenticate(app: express.Application) {
 		// Use passport.authenticate() as route middleware to authenticate the
 		// request.  The first step in Google authentication will involve
 		// redirecting the user to google.com.  After authorization, Google
@@ -146,4 +156,4 @@ namespace Authentication {
 	}
 }
 
-export default Authentication;
+export default AuthenticationModule;

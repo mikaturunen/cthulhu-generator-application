@@ -3,7 +3,7 @@
 import express from "express";
 import * as path from "path";
 import { isInProduction } from "../environment/environment";
-import profile from "../profile/profile";
+import ProfileModule from "../profile/profile";
 import { createNewCharacter } from "../character/character";
 
 /**
@@ -22,8 +22,9 @@ const pathToIndexHtml = path.join(__dirname, "../../components/index.html");
 /**
  * Adds all the required frontend routes for Single Page App usage scenario.
  * @param {express.Application} app Application object from express().
+ * @param {InversionOfControlContainer} container Container with all the modules loaded in.
  */
-export function addViewIndexRoutesForSpa(app: express.Application) {
+export function addViewIndexRoutesForSpa(app: express.Application, container: InversionOfControlContainer) {
 	// Defining the routes we want to hook explicitly to index.html
 	[
 		"/",
@@ -33,11 +34,13 @@ export function addViewIndexRoutesForSpa(app: express.Application) {
 	.forEach(route => app.get(route, (request: express.Request, response: express.Response) =>
 		response.sendFile(pathToIndexHtml)));
 
+	let profileModule = container.get<ProfileModule>("profile");
+
 	// Fetch logged in user profile, otherwise report 401 to user
 	app.get("/profile", (request: express.Request, response: express.Response) => {
 		if (request.isAuthenticated ? request.isAuthenticated() : false) {
 			// TODO proper error sending to fron in .catch
-			profile.get(request.user._json.id)
+			profileModule.get(request.user._json.id)
 				.then(profile => response.json(profile))
 				.catch(() => response.json({}));
 		} else {
@@ -50,11 +53,11 @@ export function addViewIndexRoutesForSpa(app: express.Application) {
 	app.get("/character", (request: express.Request, response: express.Response) => {
 		if (request.isAuthenticated ? request.isAuthenticated() : false) {
 			let newCharacter = createNewCharacter();
-			profile.get(request.user._json.id)
+			profileModule.get(request.user._json.id)
 				.then(userProfile => {
 					userProfile.characters.push(newCharacter);
 					console.log("Generated character");
-					return profile.upsert(userProfile);
+					return profileModule.upsert(userProfile);
 				})
 				.then(userProfile => {
 					console.log("profile:", userProfile);
