@@ -5,6 +5,7 @@ require("babel-polyfill");
 
 import * as path from "path";
 import * as parser from "body-parser";
+import Injector from "./injector/injector";
 import express from "express";
 import cookieParser from "cookie-parser";
 import { createNewCharacter } from "./character/character";
@@ -18,11 +19,12 @@ const app = express();
 
 printProductionStatus();
 
-// Make sure all our modules are initialized; we essentially could use a DI container here and make sure
-// everything is in working order through the DI container but we'll do it this way for now. We'll switch
-// to DI once it gets a bit more complicated. This will do for now just fine.
+const container = new Injector();
 
-profile.setup()
+container.store<typeof profile>("profile", profile, "setup");
+container.setup();
+
+container.isReady()
 	.then(() => {
 		// All modules are now in working order, let the driving begin!
 

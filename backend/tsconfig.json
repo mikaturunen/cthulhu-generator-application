@@ -22,7 +22,7 @@
         "./character/rules.ts",
         "./cthulhu.ts",
         "./environment/environment.ts",
-        "./injector/container.ts",
+        "./injector/injector.ts",
         "./injector/typedefinitions/container.d.ts",
         "./log/log.ts",
         "./profile/profile.ts",

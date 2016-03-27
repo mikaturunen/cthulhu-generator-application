@@ -8,7 +8,7 @@ interface ContentInterface {
 	content: any;
 }
 
-class InjectorContainer implements InversionOfControlContainer {
+class Injector implements InversionOfControlContainer {
 	private container: { [name: string]: ContentInterface };
 
 	private setupPromises: Q.Promise<any>[];
@@ -66,6 +66,11 @@ class InjectorContainer implements InversionOfControlContainer {
 			.forEach(k => this.resolveContentSetup(k));
 	}
 
+	/**
+	 * Attempts to resolve the setup callback for the external module.
+	 * @param {string} key What key to look for
+	 * @param {ContentInterface} has
+	 */
 	private resolveContentSetup(key: string, has?: ContentInterface) {
 		if (!has) {
 			// Call again to populate it properly
@@ -83,3 +88,5 @@ class InjectorContainer implements InversionOfControlContainer {
 	}
 
 };
+
+export default Injector;
