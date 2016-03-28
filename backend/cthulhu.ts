@@ -33,6 +33,10 @@ container.isReady()
 		// The inversion of control container has now setup all the modules and we can start using them.
 		let authentication = container.get<AuthenticationModule>("authenticate");
 
+		// Otherwise Express will add 'X-Powered-By:Express' header to HTTP requests, which is idiotic as it tells the potential
+		// Attacker what server software we are using and allows them to look up common vurnerabilities. Not good! Disabling.
+		app.disable("x-powered-by");
+
 		// Using block-scoping for no real reason. Makes it easier to see what happens and where,
 		// will probably move the separate blocks into their own files once they grow a bit more.
 

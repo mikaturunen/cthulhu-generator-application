@@ -15,7 +15,6 @@
     "files": [
         "../typedefinitions/backend.d.ts",
         "../typedefinitions/cthulhu.d.ts",
-        "./authentication/authentication.d.ts",
         "./authentication/authentication.ts",
         "./character/character.ts",
         "./character/die.ts",

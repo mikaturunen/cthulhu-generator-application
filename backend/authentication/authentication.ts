@@ -155,6 +155,11 @@ class AuthenticationModule {
 		});
 	}
 
+	/**
+	 * Checks if the request is authenticated. Leans on sessions.
+	 * @param {express.Request} request Request object from Express.
+	 * @returns {boolean} True when the user is authenticated, otherwise false.
+	 */
 	public isAuthenticated(request: express.Request) {
 		return request.isAuthenticated ? request.isAuthenticated() : false;
 	}

@@ -5,6 +5,7 @@ import * as path from "path";
 import { isInProduction } from "../environment/environment";
 import { createNewCharacter } from "../character/character";
 
+// Add the injected content for type referencing
 import ProfileModule from "../profile/profile";
 import AuthenticationModule from "../authentication/authentication";
 
