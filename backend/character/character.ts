@@ -125,6 +125,21 @@ const createBaseCharacter = () => {
 	};
 };
 
+/**
+ * PLEASE NOTE THAT THIS IS NO REAL GLOBALLY UNIQUE GUID! We just need some sort of silly way of identifying the cthulhuCharacters
+ * from each other in the context of a single user and his characters. This is POOPGUID!
+ */
+const generatePoopGuid = () =>
+	(() => {
+		function s4() {
+			return Math.floor((1 + Math.random()) * 0x10000)
+				.toString(16)
+				.substring(1);
+		}
+
+		return s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
+	})();
+
 export function createNewCharacter() {
 	let character = createBaseCharacter();
 
@@ -134,6 +149,7 @@ export function createNewCharacter() {
 	character.education = randomizeEducation(character);
 	character.occupation = randomizeOccupation(character);
 	character.sexualOrientation = randomizeSexualOrientation();
+	character.guid = generatePoopGuid();
 
 	return character;
 };
