@@ -17,7 +17,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var pathToIndexHtml = path.join(__dirname, "../../components/index.html");
 function addViewIndexRoutesForSpa(app, container) {
-    ["/", "/front", "/login"].forEach(function (route) {
+    ["/", "/characters", "/character", "/login"].forEach(function (route) {
         return app.get(route, function (request, response) {
             return response.sendFile(pathToIndexHtml);
         });

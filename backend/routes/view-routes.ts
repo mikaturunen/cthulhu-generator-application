@@ -31,7 +31,8 @@ export function addViewIndexRoutesForSpa(app: express.Application, container: In
 	// Defining the routes we want to hook explicitly to index.html
 	[
 		"/",
-		"/front",
+		"/characters",
+		"/character",
 		"/login"
 	]
 	.forEach(route => app.get(route, (request: express.Request, response: express.Response) =>
