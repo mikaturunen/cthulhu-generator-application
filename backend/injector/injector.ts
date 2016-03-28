@@ -49,13 +49,13 @@ class Injector implements InversionOfControlContainer {
 	 * @param {T} Returns content of generics type.
 	 */
 	public get<T>(name: string) {
-		let content = <T> this.container[name].content;
+		let has = this.container[name];
 
-		if (!content) {
+		if (!has) {
 			throw "No content with name " + name + " inside the container. Did you load the content and wait for ready to resolve?";
 		}
 
-		return content;
+		return <T>has.content;
 	}
 	/**
 	 * Setups all the given content and makes sure it's properly loaded. Essentially triggers the chain to get isReady

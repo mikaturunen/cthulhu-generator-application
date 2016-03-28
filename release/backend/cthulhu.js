@@ -50,6 +50,8 @@ container.setup();
 container.isReady().then(function () {
     var authentication = container.get("authenticate");
 
+    app.disable("x-powered-by");
+
     {
         app.set("port", process.env.PORT || 3000);
     }

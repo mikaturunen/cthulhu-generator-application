@@ -23,37 +23,37 @@ function addViewIndexRoutesForSpa(app, container) {
         });
     });
     var profileModule = container.get("profile");
+    var authenticationModule = container.get("authenticate");
 
     app.get("/profile", function (request, response) {
-        if (request.isAuthenticated ? request.isAuthenticated() : false) {
-            profileModule.get(request.user._json.id).then(function (profile) {
-                return response.json(profile);
-            }).catch(function () {
-                return response.json({});
-            });
-        } else {
+        if (!authenticationModule.isAuthenticated(request)) {
             response.status(401);
+            return;
         }
+
+        profileModule.get(request.user._json.id).then(function (profile) {
+            return response.json(profile);
+        }).catch(function () {
+            return response.json({});
+        });
     });
 
-    app.get("/character", function (request, response) {
-        if (request.isAuthenticated ? request.isAuthenticated() : false) {
-            (function () {
-                var newCharacter = (0, _character.createNewCharacter)();
-                profileModule.get(request.user._json.id).then(function (userProfile) {
-                    userProfile.characters.push(newCharacter);
-                    console.log("Generated character");
-                    return profileModule.upsert(userProfile);
-                }).then(function (userProfile) {
-                    console.log("profile:", userProfile);
-                    response.json(userProfile);
-                }).catch(function () {
-                    return response.status(500);
-                });
-            })();
-        } else {
+    app.post("/character", function (request, response) {
+        if (!authenticationModule.isAuthenticated(request)) {
             response.status(401);
+            return;
         }
+        var newCharacter = (0, _character.createNewCharacter)();
+        profileModule.get(request.user._json.id).then(function (userProfile) {
+            userProfile.characters.push(newCharacter);
+            console.log("Generated character");
+            return profileModule.upsert(userProfile);
+        }).then(function (userProfile) {
+            console.log("profile:", userProfile);
+            response.json(userProfile);
+        }).catch(function () {
+            return response.status(500);
+        });
     });
 
     if ((0, _environment.isInProduction)() === true) {

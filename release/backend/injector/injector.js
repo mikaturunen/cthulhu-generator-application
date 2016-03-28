@@ -45,11 +45,11 @@ var Injector = function () {
     }, {
         key: "get",
         value: function get(name) {
-            var content = this.container[name].content;
-            if (!content) {
+            var has = this.container[name];
+            if (!has) {
                 throw "No content with name " + name + " inside the container. Did you load the content and wait for ready to resolve?";
             }
-            return content;
+            return has.content;
         }
     }, {
         key: "setup",

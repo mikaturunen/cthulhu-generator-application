@@ -7,10 +7,8 @@ dom-module#cthulhu-character-list
 	template
 		style(include="cthulhu-style")
 
-		div.flex
-			iron-list(items="[[ characters ]]" as="character")
-				template
-					div
-						span [[ character.lastName ]], [[ character.firstName ]]
+		template(is="dom-repeat" items="[[ characters ]]" as="character")
+			div(on-click="").thin-card
+				span [[ character.lastName ]], [[ character.firstName ]] 
 
 	script(src="../../components/cthulhu-character-list/cthulhu-character-list.js")

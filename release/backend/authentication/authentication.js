@@ -117,6 +117,11 @@ var AuthenticationModule = function () {
                 response.json(request.isAuthenticated ? request.isAuthenticated() : false);
             });
         }
+    }, {
+        key: "isAuthenticated",
+        value: function isAuthenticated(request) {
+            return request.isAuthenticated ? request.isAuthenticated() : false;
+        }
     }]);
 
     return AuthenticationModule;

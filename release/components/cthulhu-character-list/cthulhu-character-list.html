@@ -6,13 +6,9 @@
   <link rel="import" type="css" href="../../components/cthulhu-character-list/cthulhu-character-list.css"/>
   <template>
     <style include="cthulhu-style"></style>
-    <div class="flex">
-      <iron-list items="[[ characters ]]" as="character">
-        <template>
-          <div><span>[[ character.lastName ]], [[ character.firstName ]]</span></div>
-        </template>
-      </iron-list>
-    </div>
+    <template is="dom-repeat" items="[[ characters ]]" as="character">
+      <div on-click="" class="thin-card"><span>[[ character.lastName ]], [[ character.firstName ]] </span></div>
+    </template>
   </template>
   <script src="../../components/cthulhu-character-list/cthulhu-character-list.js"></script>
 </dom-module>

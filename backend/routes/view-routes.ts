@@ -38,7 +38,7 @@ export function addViewIndexRoutesForSpa(app: express.Application, container: In
 		response.sendFile(pathToIndexHtml)));
 
 	let profileModule = container.get<ProfileModule>("profile");
-	let authenticationModule = container.get<AuthenticationModule>("authentication");
+	let authenticationModule = container.get<AuthenticationModule>("authenticate");
 
 	// Fetch logged in user profile, otherwise report 401 to user
 	app.get("/profile", (request: express.Request, response: express.Response) => {
@@ -55,7 +55,7 @@ export function addViewIndexRoutesForSpa(app: express.Application, container: In
 
 	// Route for creating new characters. Allowed only for logged in users as the character
 	// gets added to the users own Profile
-	app.get("/character", (request: express.Request, response: express.Response) => {
+	app.post("/character", (request: express.Request, response: express.Response) => {
 		if (!authenticationModule.isAuthenticated(request)) {
 			response.status(401);
 			return;
