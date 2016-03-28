@@ -1,0 +1,21 @@
+:host {
+  padding-top: 5em;
+  display: flex;
+  justify-content: center;
+}
+:host .card {
+  min-width: var(--card-min-width);
+  border-radius: var(--default-round-corner);
+}
+:host .card.no-border {
+  border: 0px solid white !important;
+  display: flex;
+  justify-content: center;
+}
+:host .center {
+  display: flex;
+  justify-content: center;
+}
+:host .div {
+  padding: var(--default-margin);
+}

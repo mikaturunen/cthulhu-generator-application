@@ -1,0 +1,21 @@
+link(rel="import" href="../../components/polymer/polymer.html")
+
+dom-module#cthulhu-character-view
+	link(rel="import" type="css" href="../../components/cthulhu-character-view/cthulhu-character-view.css")
+	template
+		style(include="cthulhu-style")
+
+		iron-ajax#ProfileGet(
+			auto
+			url="/profile" 
+			handle-as="json" 
+			on-error="onProfileError"
+			last-response="{{ profile }}"
+		)
+
+		cthulhu-header
+
+		div
+			cthulhu-character-list(characters="[[ profile.characters ]]")
+
+	script(src="../../components/cthulhu-character-view/cthulhu-character-view.js")

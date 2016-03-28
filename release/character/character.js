@@ -1,19 +1,8 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.createNewCharacter = createNewCharacter;
-
-var _die = require("./die");
-
-var _rules = require("./rules");
-
-var _rules2 = _interopRequireDefault(_rules);
-
-var _random = require("./random");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var die_1 = require("./die");
+var rules_1 = require("./rules");
+var random_1 = require("./random");
 
 var occupation = require("./assets/occupation.json");
 var education = require("./assets/education.json");
@@ -22,32 +11,32 @@ var lastNames = require("./assets/last-names.json");
 var maxRecursionDepth = 5000;
 
 var randomizeGender = function randomizeGender() {
-    return (0, _random.random)(0, 1) === _rules2.default.male ? "male" : "female";
+    return random_1.random(0, 1) === rules_1["default"].male ? "male" : "female";
 };
 var randomizeSexualOrientation = function randomizeSexualOrientation() {
-    return _rules2.default.sexualOrientations()[(0, _random.random)(0, 100)];
+    return rules_1["default"].sexualOrientations()[random_1.random(0, 100)];
 };
 var randomizeFirstName = function randomizeFirstName(character) {
     var listOfFirstNames = character.gender === "male" ? firstNames.male : firstNames.female;
-    return listOfFirstNames[(0, _random.random)(0, listOfFirstNames.length - 1)];
+    return listOfFirstNames[random_1.random(0, listOfFirstNames.length - 1)];
 };
 var randomizeLastName = function randomizeLastName() {
-    return lastNames[(0, _random.random)(0, lastNames.length - 1)];
+    return lastNames[random_1.random(0, lastNames.length - 1)];
 };
 var randomizeOccupation = function randomizeOccupation(character) {
-    return occupation[(0, _random.random)(0, occupation.length - 1)];
+    return occupation[random_1.random(0, occupation.length - 1)];
 };
 var randomizeStats = function randomizeStats(character) {
-    var statRolls = [(0, _die.roll)(_rules2.default.dice.strength), (0, _die.roll)(_rules2.default.dice.dexterity), (0, _die.roll)(_rules2.default.dice.intelligence), (0, _die.roll)(_rules2.default.dice.constitution), (0, _die.roll)(_rules2.default.dice.appearance), (0, _die.roll)(_rules2.default.dice.power), (0, _die.roll)(_rules2.default.dice.size), (0, _die.roll)(_rules2.default.dice.education)];
+    var statRolls = [die_1.roll(rules_1["default"].dice.strength), die_1.roll(rules_1["default"].dice.dexterity), die_1.roll(rules_1["default"].dice.intelligence), die_1.roll(rules_1["default"].dice.constitution), die_1.roll(rules_1["default"].dice.appearance), die_1.roll(rules_1["default"].dice.power), die_1.roll(rules_1["default"].dice.size), die_1.roll(rules_1["default"].dice.education)];
     if (statRolls.reduce(function (previousDie, nextDie) {
         return previousDie + nextDie;
-    }) < _rules2.default.statLimit) {
+    }) < rules_1["default"].statLimit) {
         console.log("Total was under 90. Rerolling stats dies..");
 
         return randomizeStats(character);
     }
 
-    character.stats.ageModifier = (0, _die.roll)(_rules2.default.dice.ageModifier);
+    character.stats.ageModifier = die_1.roll(rules_1["default"].dice.ageModifier);
     character.stats.strength = statRolls[0];
     character.stats.dexterity = statRolls[1];
     character.stats.intelligence = statRolls[2];
@@ -56,19 +45,20 @@ var randomizeStats = function randomizeStats(character) {
     character.stats.power = statRolls[5];
     character.stats.size = statRolls[6];
     character.stats.education = statRolls[7];
-    _rules2.default.calculateMissingStats(character);
+    rules_1["default"].calculateMissingStats(character);
     return character;
 };
-var randomizeEducation = function randomizeEducation(character) {
-    var depth = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
-
+var randomizeEducation = function randomizeEducation(character, depth) {
+    if (depth === void 0) {
+        depth = 0;
+    }
     if (depth >= maxRecursionDepth) {
         return character.education;
     }
     if (depth === 0) {
         character.education = "None";
     }
-    var educationIndex = (0, _random.random)(0, education.length - 1);
+    var educationIndex = random_1.random(0, education.length - 1);
     education[educationIndex].levels.sort(function (a, b) {
         return b.value - a.value;
     }).some(function (level) {
@@ -132,4 +122,5 @@ function createNewCharacter() {
     character.guid = generatePoopGuid();
     return character;
 }
+exports.createNewCharacter = createNewCharacter;
 ;
