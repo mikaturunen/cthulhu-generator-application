@@ -154,6 +154,10 @@ class AuthenticationModule {
 			response.json(request.isAuthenticated ? request.isAuthenticated() : false);
 		});
 	}
+
+	public isAuthenticated(request: express.Request) {
+		return request.isAuthenticated ? request.isAuthenticated() : false;
+	}
 }
 
 export default AuthenticationModule;

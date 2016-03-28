@@ -3,8 +3,10 @@
 import express from "express";
 import * as path from "path";
 import { isInProduction } from "../environment/environment";
-import ProfileModule from "../profile/profile";
 import { createNewCharacter } from "../character/character";
+
+import ProfileModule from "../profile/profile";
+import AuthenticationModule from "../authentication/authentication";
 
 /**
  * Sole purpose of this file is to provide the routes for different "*-view" components in the front.
@@ -35,40 +37,42 @@ export function addViewIndexRoutesForSpa(app: express.Application, container: In
 		response.sendFile(pathToIndexHtml)));
 
 	let profileModule = container.get<ProfileModule>("profile");
+	let authenticationModule = container.get<AuthenticationModule>("authentication");
 
 	// Fetch logged in user profile, otherwise report 401 to user
 	app.get("/profile", (request: express.Request, response: express.Response) => {
-		if (request.isAuthenticated ? request.isAuthenticated() : false) {
-			// TODO proper error sending to fron in .catch
-			profileModule.get(request.user._json.id)
-				.then(profile => response.json(profile))
-				.catch(() => response.json({}));
-		} else {
+		if (!authenticationModule.isAuthenticated(request)) {
 			response.status(401);
+			return;
 		}
+
+		// TODO proper error sending to fron in .catch
+		profileModule.get(request.user._json.id)
+			.then(profile => response.json(profile))
+			.catch(() => response.json({}));
 	});
 
 	// Route for creating new characters. Allowed only for logged in users as the character
 	// gets added to the users own Profile
 	app.get("/character", (request: express.Request, response: express.Response) => {
-		if (request.isAuthenticated ? request.isAuthenticated() : false) {
-			let newCharacter = createNewCharacter();
-			profileModule.get(request.user._json.id)
-				.then(userProfile => {
-					userProfile.characters.push(newCharacter);
-					console.log("Generated character");
-					return profileModule.upsert(userProfile);
-				})
-				.then(userProfile => {
-					console.log("profile:", userProfile);
-					response.json(userProfile);
-				})
-				.catch(() => response.status(500));
-		} else {
+		if (!authenticationModule.isAuthenticated(request)) {
 			response.status(401);
+			return;
 		}
-	});
 
+		let newCharacter = createNewCharacter();
+		profileModule.get(request.user._json.id)
+			.then(userProfile => {
+				userProfile.characters.push(newCharacter);
+				console.log("Generated character");
+				return profileModule.upsert(userProfile);
+			})
+			.then(userProfile => {
+				console.log("profile:", userProfile);
+				response.json(userProfile);
+			})
+			.catch(() => response.status(500));
+	});
 
 	// When in production, we offer index.html from all the routes so that front does
 	// not explode when user navigates to /foo/bar/testing/asfadsf?€32423&421
